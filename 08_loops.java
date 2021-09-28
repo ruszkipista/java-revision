@@ -4,6 +4,8 @@ class loops {
         do_while_loop();
         for_loop();
         nested_for_loops();
+        fibonacci(4);
+        half_pyramid(4);
     }
 
     public static void while_loop() {
@@ -47,5 +49,29 @@ class loops {
         }
 
         System.out.println("All missiles have been launched.");
+    }
+
+    public static void fibonacci(int n) {
+        int f0=0, f1=1, i=0, temp;
+        System.out.println("Fibonacci("+n+")");
+        do {
+            System.out.print(f0 + " ");
+            if (++i>=n) {break;}
+            temp = f1;
+            f1 = f0+f1;
+            f0 = temp;
+        } while (true);
+        System.out.println();
+    }
+
+    public static void half_pyramid(int rows) {
+        System.out.println("Half_Pyrqamid("+rows+")");
+        //use " " to add space between # in pyramid
+        for (int i=0;i<rows;i++){
+            for (int j=0;j<=i;j++){
+                System.out.print("# ");
+            }
+            System.out.println();
+        }
     }
 }
