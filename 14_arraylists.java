@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 class arraylists {
     public static void main(String[] args) {
-        // declare an int type based ArrayList
+        // declare an Integer type based ArrayList
         ArrayList<Integer> arrInt;
         
         // instantiate an empty float type based ArrayList with initial capacity of 10
@@ -23,8 +23,6 @@ class arraylists {
         ArrayList<Character> arrCharacter = new ArrayList<Character>(Arrays.asList('a','b','a','c','c','c','a'));
         removeDuplicates(arrCharacter);
         print_elements(arrCharacter);
-        
-
     }
 
     public static void inbuilt_methods() {
