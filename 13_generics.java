@@ -1,4 +1,15 @@
 class generics {
+    // Primitive Data Type      Wrapper Class
+    // --------------------     -------------
+    // boolean                  Boolean
+    // byte                     Byte
+    // char                     Character
+    // double                   Double
+    // float                    Float
+    // int                      Integer
+    // long                     Long
+    // short                    Short
+
     public static void main(String[] args) {
 
         temp(1, 2, 3);
@@ -7,13 +18,13 @@ class generics {
         System.out.printf("Max of %.1f,%.1f and %.1f is %.1f\n", 6.6, 8.8, 7.7, maximum(6.6, 8.8, 7.7));
         System.out.printf("Max of %s, %s and %s is %s\n", "pear", "apple", "orange", maximum("pear", "apple", "orange"));
 
-        StoreObject < Integer > obj1 = new StoreObject < Integer > (5);
+        StoreObject<Integer> obj1 = new StoreObject<Integer> (5);
         System.out.println("Stored value: "+obj1.getObject());
 
-        StoreObject < Double > obj2 = new StoreObject < Double > (15.777755);
+        StoreObject<Double> obj2 = new StoreObject<Double> (15.777755);
         System.out.println("Stored value: "+obj2.getObject());
 
-        StoreObject < String > obj3 = new StoreObject < String > ("My first Generic Class.");
+        StoreObject<String> obj3 = new StoreObject<String> ("My first Generic Class.");
         System.out.println(obj3.getObject());
 
         Integer[] arr = {1,2,3,2,0};
@@ -51,7 +62,7 @@ class generics {
     public static <T extends Comparable<T>> T findMax(T[] data) {
         T max = data[0];
         for (int i=1;i<data.length;i++){
-            if (data[i].compareTo(max)==1) max=data[i];
+            if (data[i].compareTo(max) > 0) max=data[i];
         }
         return max;
     }
