@@ -1,4 +1,12 @@
 class tests {
+    public static void main(String[] args) {
+        char[] pw = {'1','2','3','4','a','b','c','d'};
+        System.out.println(check(pw));
+
+        System.out.println(TraverseString("Hello World"));
+
+    }
+
     public static boolean check(char[] password) {
 
         // Enter your code here
@@ -11,9 +19,13 @@ class tests {
         return valid; 
     }
 
-    public static void main(String[] args) {
-        char[] pw = {'1','2','3','4','a','b','c','d'};
-        System.out.println(check(pw));
+    public static String TraverseString(String str) {
+        // Base case
+        if (str.isEmpty()) {
+            return str;
+        } else {
+            // Recursive case
+            return TraverseString(str.substring(1)) + str.charAt(0);
+        }
     }
 }
-
