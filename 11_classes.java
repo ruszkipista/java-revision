@@ -53,12 +53,11 @@ class classes {
             this(copyThisPet.petType, copyThisPet.petName, copyThisPet.petAge);
         }
 
-        // GETter public member method for CLASS private attribute
+        // GETter public member method for CLASS private static attribute
         public static int get_last_ID() {
             return newID;
         }
         
-
         // GETter public member method for OBJECT private attribute
         public int get_age() {
             return this.petAge;

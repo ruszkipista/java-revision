@@ -3,7 +3,7 @@ class tests {
         char[] pw = {'1','2','3','4','a','b','c','d'};
         System.out.println(check(pw));
 
-        System.out.println(TraverseString("Hello World"));
+        System.out.println(ReverseString("Hello World"));
 
     }
 
@@ -19,13 +19,13 @@ class tests {
         return valid; 
     }
 
-    public static String TraverseString(String str) {
+    public static String ReverseString(String str) {
         // Base case
         if (str.isEmpty()) {
             return str;
         } else {
             // Recursive case
-            return TraverseString(str.substring(1)) + str.charAt(0);
+            return ReverseString(str.substring(1)) + str.charAt(0);
         }
     }
 }
