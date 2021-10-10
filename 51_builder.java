@@ -1,34 +1,45 @@
-class builder_pattern {
+class Builder_pattern {
+    /*
+    * Build an object with obligatory and optional attributes
+    */
     public static void main(String[] args) {
-        Builder pojo1 = new Builder("argument1").optional1(42);
+        Vehicle pojo1 = new Vehicle("car", "steel").engine("four stroke petrol");
         System.out.println(pojo1.toString());
-        Builder pojo2 = new Builder("argument2").optional2(3);
+        Vehicle pojo2 = new Vehicle("bicycle","wood").wheels(2);
         System.out.println(pojo2.toString());
     }
 
-    static class Builder {
-        private String mandatory;
-        private int opt1;
-        private int opt2;
+    static class Vehicle {
+        private String name;
+        private String chassis;
+        private String engine;
+        private int wheels;
         
         // constructor with obligatory attribute
-        public Builder(String mandatory){
-            this.mandatory = mandatory;
+        public Vehicle(String name, String chassis){
+            this.name = name;
+            this.chassis = chassis;
+            // default values for optional attributes
+            this.engine = null;
+            this.wheels = 0;
         }
         // optional attribute
-        public Builder optional1(int opt1){
-            this.opt1 = opt1;
+        public Vehicle engine(String engine){
+            this.engine = engine;
             return this;
         }
         // optional attribute
-        public Builder optional2(int opt2){
-            this.opt2 = opt2;
+        public Vehicle wheels(int wheels){
+            this.wheels = wheels;
             return this;
         }
 
         @Override
         public String toString(){
-            return this.mandatory+" "+opt1+" "+opt2;
+            return "Vehicle:"+this.name +
+                    ", chassis: "+this.chassis +
+                    ((this.engine==null)?"":(", engine: "+this.engine)) +
+                    ((this.wheels==0)?"":(", wheels: "+this.wheels));
         }
     }
 }
