@@ -5,6 +5,7 @@ class math {
         trigonometry();
         absolute();
         max_min();
+        rounding();
     }
 
     public static void exponent() {
@@ -35,5 +36,11 @@ class math {
     public static void max_min() {
         System.out.println("Maximum between 2.04 and 2.05: " + Math.max(2.04, 2.05));
         System.out.println("Minimum between 19 and 23: " + Math.min(19, 23));
+    }
+
+    public static void rounding() {
+        double doubleValue = -3.99999d;
+        double rounded = Math.round(doubleValue);
+        System.out.println("Rounding of " + doubleValue + " to " + rounded); //=-4.0
     }
 }

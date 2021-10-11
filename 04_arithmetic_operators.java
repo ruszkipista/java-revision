@@ -76,7 +76,7 @@ class Operators {
         int post_inc = 5;
 
         System.out.println("Initial value: " + post_inc);
-        System.out.println("post_inc++   = " + (post_inc++));
+        System.out.println("post_inc++   = " + (post_inc++) + " !!!");
         System.out.println("post_inc = " + post_inc);
         System.out.println();
 
@@ -85,7 +85,7 @@ class Operators {
 
         System.out.println("Initial value: " + post_dec);
         answer = post_dec--;
-        System.out.println("post_dec--   = " + answer);
+        System.out.println("post_dec--   = " + answer + " !!!");
         answer = post_dec;
         System.out.println("post_dec = " + answer);
         System.out.println();
