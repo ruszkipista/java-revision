@@ -1,5 +1,3 @@
-package tutorial;
-
 import java.lang.Math;
 
 public class Application {
