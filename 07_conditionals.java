@@ -5,6 +5,10 @@ class conditional_statements {
         if_else_if();
         switch_statement();
         conditional_expression();
+
+        //   ?:  Ternary (short-hand for if-then) if expression is true, assign
+        //       to variable the value after ?, else assign value after :
+        String sTern = (1!=2) ? "trueValue" : "falseValue"; //="trueValue"   
     }
 
     public static void if_statement() {

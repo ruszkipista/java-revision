@@ -42,11 +42,6 @@ class declare_variables {
     bt++;
     // 127+1 turns into -128 without error message or exception
     System.out.println("Byte minimum (MAX+1): " + bt);
-    // hexadecimal integer literal
-    bt = 0x0A; //=decimal 10
-    // binary integer literal
-    bt = 0b0000_1101; //=decimal 11
-    System.out.println();
 
     // short (integral) type on 2 bytes, range of [-2^15...2^15-1]        
     System.out.println("Default Short variable value: " + sValUnass); //=0
@@ -131,6 +126,33 @@ class declare_variables {
     // loss of fractional value part of double
     intValue = (int)doubleValue; //here intValue gets 3 !!!
 
+    // Literals can be assigned to any primitive type variable
+    byte a = 68;
+    char b = 'B';
+    // byte, int, long, and short can be expressed in 
+    // decimal(base 10), hexadecimal(base 16) or octal(base 8) number systems
+    // Prefix 0 is used to indicate octal
+    byte octal = 0144;
+    // prefix 0x indicates hexadecimal
+    short hexa = 0x0A; //=decimal 10
+    // prefix 0b indicates binary literal, _ separator for each 4 digits
+    long bin = 0b0000_1101; //=decimal 11
+    System.out.println();
+
+    // special escape sequences for String and char literals
+    //   Notation   	Character represented
+    //   \n          	Newline (0x0a)
+    //   \r         	Carriage return (0x0d)
+    //   \f          	Formfeed (0x0c)
+    //   \b	          Backspace (0x08)
+    //   \s          	Space (0x20)
+    //   \t          	tab
+    //   \"          	Double quote
+    //   \'	          Single quote
+    //   \\         	backslash
+    //   \ddd	        Octal character (ddd)
+    //   \ uxxxx     	Hexadecimal UNICODE character (xxxx)
+    
     // demonstration of arithmetics
     int intValue1 = 56;
     int intValue2 = 42;
@@ -146,40 +168,5 @@ class declare_variables {
     double result5 = (double)intValue1 / intValue2;
     System.out.println("/ division (double):" + result5); //=1.3333333333333333
 
-    // comparison operators: on primitive variables their value is compared
-    //                       on complex variables their ponter is compared
-    //       ==  equal
-    //       !=  not equal
-    //       >=  greater than or equal
-    //       <=  less than or equal
-    //       >   greater than
-    //       <   less than
-    // instanceof Class membership
-
-    // demonstrate expression evaluation
-    boolean bExpr = (1 == 2); //=false
-    System.out.println("Evaluated expression (1 == 2) as: " + bExpr);
-
-    // demonstrate instanceof operator
-    String sHello1 = "Hello";
-    if (sHello1 instanceof java.lang.String) {
-        System.out.println("s is a String");
-    }
-
-    // comparing strings: using String class's equals method
-    String sHello2 = "Hello";
-    if (sHello1.equals(sHello2)){
-        System.out.println("The two strings match " + sHello1 + sHello2);
-    }
-    else {
-        System.out.println("The two strings do not match " + sHello1 + sHello2);
-    }
-
-    // logical operators: <expression1> operator <expression2>
-    //   &&  AND
-    //   ||  OR
-    //   ?:  Ternary (short-hand for if-then) if expression is true, assign
-    //       to variable the value after ?, else assign value after :
-    String sTern = (1!=2) ? "trueValue" : "falseValue"; //="trueValue"
   }
 }
