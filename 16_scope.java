@@ -2,7 +2,7 @@ class Scope {
     // there is default value for primitive data types on class/object level
     // class (static) variable
     static byte class_static;
-    // class constant
+    // class final: can not be reassigned, primitive can be changed!
     static final double PI=3.14159276d;
     // Instance variable
     short class_local;
@@ -11,7 +11,7 @@ class Scope {
         System.out.println("Class static: " + class_static);
         Scope.class_method();
         Scope.class_method();
-
+        
         Scope pojo1 = new Scope();
         pojo1.instance_method();
         pojo1.instance_method();
@@ -23,6 +23,8 @@ class Scope {
     // class static method uses class variable
     static void class_method(){
         System.out.println("Class static: " + ++class_static);
+        // Scope.PI++;
+        System.out.println("Class Final Primitive: " + Scope.PI);
     }
 
     void instance_method() {

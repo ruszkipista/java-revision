@@ -56,11 +56,6 @@ class logical_operators {
         else {
             System.out.println("The two strings do not match " + sHello1 + sHello2);
         }
-
-        // logical operators: <expression1> operator <expression2>
-        //   &&  AND
-        //   ||  OR
- 
     }
 
     public static void boolean_operators() {
@@ -70,16 +65,9 @@ class logical_operators {
         System.out.println("Value of x: " + x);
         System.out.println("Value of y: " + y);
 
-        System.out.println("Boolean NOT of x");
-        System.out.println(!x);
-
-        System.out.println("Boolean AND of x and y");
-        System.out.println(x && y);
-
-        System.out.println("Boolean OR of x and y");
-        System.out.println(x || y);
-
-        System.out.println("Boolean exclusive XOR of x and y");
-        System.out.println(x ^ y);
+        System.out.println("Boolean NOT of x " + !x );
+        System.out.println("Boolean AND of x and y " + (x && y) );
+        System.out.println("Boolean OR of x and y " + (x || y) );
+        System.out.println("Boolean exclusive XOR of x and y " + (x ^ y));
     }
 }
