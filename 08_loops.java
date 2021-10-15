@@ -3,6 +3,7 @@ class loops {
         while_loop();
         do_while_loop();
         for_loop();
+        enhanced_for_loop();
         nested_for_loops();
         fibonacci(4);
         half_pyramid(4);
@@ -29,10 +30,20 @@ class loops {
     }
 
     public static void for_loop() {
+        // for loop iterates 10 times
         for (int i = 0; i < 10; ++i) {
-            // for loop iterates 10 times
+            if (i>4) continue;
             System.out.println("value of i = " + i);
         }
+    }
+
+    public static void enhanced_for_loop(){
+        String [] names = {"James", "Larry", "Tom", "Lacy"};
+
+        for( String name : names ) {
+           System.out.print( name + ", ");
+        }
+        System.out.println();
     }
 
     public static void nested_for_loops() {
@@ -65,7 +76,7 @@ class loops {
     }
 
     public static void half_pyramid(int rows) {
-        System.out.println("Half_Pyrqamid("+rows+")");
+        System.out.println("Half_Pyramid("+rows+")");
         //use " " to add space between # in pyramid
         for (int i=0;i<rows;i++){
             for (int j=0;j<=i;j++){

@@ -7,7 +7,7 @@ class logical_operators {
     //       <=  less than or equal
     //       >   greater than
     //       <   less than
-    // instanceof Class membership
+    //       instanceof   Class/Interface membership
     public static void main(String[] args) {
         comparative_operators();
         boolean_operators();
@@ -42,19 +42,19 @@ class logical_operators {
         boolean bExpr = (1 == 2); //=false
         System.out.println("Evaluated expression (1 == 2) as: " + bExpr);
 
-        // demonstrate instanceof operator
-        String sHello1 = "Hello";
-        if (sHello1 instanceof java.lang.String) {
-            System.out.println("sHello1 is a String");
-        }
-
         // comparing strings: using String class's equals method
+        String sHello1 = "Hello";
         String sHello2 = "Hello";
         if (sHello1.equals(sHello2)){
             System.out.println("The two strings match " + sHello1 + sHello2);
         }
         else {
             System.out.println("The two strings do not match " + sHello1 + sHello2);
+        }
+
+        // demonstrate instanceof operator
+        if (sHello1 instanceof java.lang.String) {
+            System.out.println("sHello1 variable is a String");
         }
     }
 
