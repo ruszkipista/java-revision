@@ -9,6 +9,7 @@ class conditional_statements {
         //   ?:  Ternary (short-hand for if-then) if expression is true, assign
         //       to variable the value after ?, else assign value after :
         String sTern = (1!=2) ? "trueValue" : "falseValue"; //="trueValue"   
+        System.out.println("Ternary expression result: " + sTern);
     }
 
     public static void if_statement() {
