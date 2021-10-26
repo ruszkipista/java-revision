@@ -70,12 +70,14 @@ class arrays {
         try {
             arr[5]=0;
         } catch (Exception e) {
+            // Index 5 out of bounds for length 3
             System.out.println("Invalid index in array generates exception: "+e.getMessage());
         }
     }
 
     static void two_dim_array() {
-        char[][] arr1 = new char[3][2]; //instantiating a character array of size 3*2 = 6 elements
+        //instantiating a character array of size 3*2 = 6 elements
+        char[][] arr1 = new char[3][2];
         arr1[0][0]='1';
         arr1[0][1]='2';
         arr1[1][0]='3';
@@ -101,7 +103,12 @@ class arrays {
         }
     }
 
-    static void printPascalTriangle(int size) { //define your function
+    // 1 
+    // 1 1 
+    // 1 2 1 
+    // 1 3 3 1 
+    // 1 4 6 4 1
+    static void printPascalTriangle(int size) {
         int[] p = new int[size];
         p[0]=1;
         int prev, tmp;
