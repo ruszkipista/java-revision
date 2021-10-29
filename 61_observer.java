@@ -18,30 +18,31 @@ class Observer_pattern {
         // mutate Observed
         station.measureTemperature(25.5);
     }
-    
+
     // INTERFACE: Observer
-    interface IObserver <T extends IObserved>{
-        public void update(T observed);
+    interface IObserver <T>{
+        public void update(IObserved<T> observed);
     }
     
     // Abstract Class: Observed
-    public static abstract class IObserved{
-        private List<IObserver> observers = new ArrayList<IObserver>();
+    public static abstract class IObserved<K> {
+        private List<IObserver<K>> observers = new ArrayList<>();
 
-        public void register(IObserver o){
+        public void register(IObserver<K> o){
             this.observers.add(o);
         }
-        public void unregister(IObserver o){
+        public void unregister(IObserver<K> o){
             this.observers.remove(o);
         }
+
         private void notifyObservers(){
-            for (IObserver observer: observers){
+            for (IObserver<K> observer: observers){
                 observer.update(this);
             }
         }
     }
 
-    static class WeatherStation extends IObserved{
+    static class WeatherStation extends IObserved<Double> {
         private double temperature;
         private String name;
         
@@ -62,17 +63,19 @@ class Observer_pattern {
         }
     }
 
-    // one type of observer
-    static class Display implements IObserver<WeatherStation>{
+    // one kind of observer
+    static class Display implements IObserver<Double> {
         @Override
-        public void update(WeatherStation observed){
-            System.out.println(observed.getName() +
-                               ": the temperature is " + observed.getTemperature());
+        public void update(IObserved<Double> observed){
+            if(observed instanceof WeatherStation) {
+                WeatherStation ws = (WeatherStation) observed;
+                System.out.println(ws.getName()+": the temperature is " + ws.getTemperature());
+            }
         }
     }
 
-    // other type of observer
-    static class HeatAlarm implements IObserver<WeatherStation>{
+    // other kind of observer
+    static class HeatAlarm implements IObserver<Double> {
         private double treshold;
 
         public HeatAlarm(double treshold){
@@ -80,9 +83,13 @@ class Observer_pattern {
         }
 
         @Override
-        public void update(WeatherStation ws){
-            if (ws.getTemperature() > this.treshold){
-                System.out.println("Alarm! The temperature has risen above "+this.treshold);
+        public void update(IObserved<Double> observed){
+            if(observed instanceof WeatherStation) {
+                WeatherStation ws = (WeatherStation) observed;
+                System.out.println(ws.getName()+": the temperature is " + ws.getTemperature());
+                if (ws.getTemperature() > this.treshold){
+                    System.out.println("Alarm! The temperature has risen above "+this.treshold);
+                }
             }
         }
     }
