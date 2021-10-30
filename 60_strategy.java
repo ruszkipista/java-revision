@@ -10,10 +10,10 @@ https://youtu.be/v9ejT8FO-7I
     public static void main(String[] args) {
         // construct a client with strategy A
         Client client1 = new Client("X", new StrategyA());
-        client1.demonstrate();
+        client1.doAlgorithm();
         // construct a client with Strategy B
         Client client2 = new Client("Y", new StrategyB());
-        client2.demonstrate();
+        client2.doAlgorithm();
     }
 
     static class Client{
@@ -24,11 +24,9 @@ https://youtu.be/v9ejT8FO-7I
             this.name = name;
             this.algorithm = algorithm;
         }
-        public String doAlgorithm(){
-            return this.algorithm.execute();
-        }
-        public void demonstrate(){
-            System.out.println("I am client "+this.name+" and "+this.doAlgorithm());
+        public void doAlgorithm(){
+            System.out.println("I am client "+this.name+
+                               " and "+this.algorithm.execute());
         }
     }
 
