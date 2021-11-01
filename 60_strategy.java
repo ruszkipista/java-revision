@@ -9,11 +9,14 @@ https://youtu.be/v9ejT8FO-7I
 */      
     public static void main(String[] args) {
         // construct a client with strategy A
-        Client client1 = new Client("X", new StrategyA());
-        client1.doAlgorithm();
+        Client clientX = new Client("X", new StrategyA());
+        clientX.doAlgorithm();
         // construct a client with Strategy B
-        Client client2 = new Client("Y", new StrategyB());
-        client2.doAlgorithm();
+        Client clientY = new Client("Y", new StrategyB());
+        clientY.doAlgorithm();
+        // replace algorithm in runtime
+        clientY.setAlgorithm(new StrategyA());
+        clientY.doAlgorithm();
     }
 
     static class Client{
@@ -24,9 +27,12 @@ https://youtu.be/v9ejT8FO-7I
             this.name = name;
             this.algorithm = algorithm;
         }
+        public void setAlgorithm(IStrategy newAlgorithm){
+            this.algorithm = newAlgorithm;
+        }
         public void doAlgorithm(){
-            System.out.println("I am client "+this.name+
-                               " and "+this.algorithm.execute());
+            System.out.println("I am client "+this.name+" and "+
+                               this.algorithm.execute());
         }
     }
 
