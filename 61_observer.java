@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Observer_pattern {
+/*
+The Observer pattern keeps your objects in the know when something they care about happens.
+*/    
     public static void main(String[] args) {
         // create Observed
         WeatherStation station = new WeatherStation("Mz/X Weather Station");
