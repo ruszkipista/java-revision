@@ -1,11 +1,8 @@
 class Strategy_pattern {
 /*
-In Strategy pattern, a class behavior or its algorithm can be changed at run time. 
-This type of design pattern comes under behavior pattern.
-In Strategy pattern, we create objects which represent various strategies and a client object
-whose behavior varies as per its strategy object.
-The strategy object changes the executing algorithm of the client object.
-https://youtu.be/v9ejT8FO-7I
+The Strategy Pattern defines a family of algorithms, encapsulates each one,
+and makes them interchangeable.
+Strategy lets the algorithm vary independently from clients that use it.
 */      
     public static void main(String[] args) {
         // construct a client with strategy A
