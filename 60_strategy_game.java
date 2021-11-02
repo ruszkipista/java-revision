@@ -1,9 +1,6 @@
-class CharacterSimU {
-    /*
-
-    */      
+class Adventure_Game { 
     public static void main(String[] args) {
-        // construct a King
+        // construct a King character
         Character king = new Character("King", new Knife());
         king.describe();
         // construct a Knight

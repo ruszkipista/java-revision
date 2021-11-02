@@ -4,96 +4,88 @@ import java.util.List;
 class Observer_pattern {
 /*
 The Observer pattern keeps your objects in the know when something they care about happens.
+The Observer Pattern defines a one-to-many dependency between objects
+so that when one object changes state, all of its dependents are notified and updated automatically.
 */    
     public static void main(String[] args) {
+        Double state=0d;
         // create Observed
-        WeatherStation station = new WeatherStation("Mz/X Weather Station");
+        Observed observed = new Observed(state);
+
         // create Observer1
-        Display lcdscreen = new Display();
-        // sign up for updates from station
-        station.register(lcdscreen);
-        // create Observer1
-        HeatAlarm gauge = new HeatAlarm(25);
-        // sign up for updates from station
-        station.register(gauge);
+        Observer1 observer1 = new Observer1();
+        // sign up for updates from observed
+        observed.register(observer1);
+        
+        // create Observer2
+        Observer2 observer2 = new Observer2();
+        // sign up for updates from observed
+        observed.register(observer2);
+
         // mutate Observed
-        station.measureTemperature(20.1);
+        observed.updateState(20.1);
         // mutate Observed
-        station.measureTemperature(25.5);
+        observed.updateState(25.5);
     }
 
     // INTERFACE: Observer
-    interface IObserver <T>{
-        public void update(IObserved<T> observed);
+    interface IObserver{
+        public void update(IObserved observed);
     }
     
-    // Abstract Class: Observed
-    public static abstract class IObserved<K> {
-        private List<IObserver<K>> observers = new ArrayList<>();
+    // INTERFACE: Observed
+    interface IObserved {
+        public void register(IObserver o);
+        public void remove(IObserver o);
+        public void notifyObservers();
+        public void updateState(Object state);
+        public Object getState();
+    }
 
-        public void register(IObserver<K> o){
+    static class Observed implements IObserved {
+        private Object state;
+        private List<IObserver> observers = new ArrayList<>();
+        
+        public Observed(Object state){
+            this.state = state;
+        }
+
+        public void register(IObserver o){
             this.observers.add(o);
         }
-        public void unregister(IObserver<K> o){
+        public void remove(IObserver o){
             this.observers.remove(o);
         }
-
-        private void notifyObservers(){
-            for (IObserver<K> observer: observers){
+        public void notifyObservers(){
+            for (IObserver observer: this.observers){
                 observer.update(this);
             }
         }
-    }
-
-    static class WeatherStation extends IObserved<Double> {
-        private double temperature;
-        private String name;
-        
-        public WeatherStation(String name){
-            this.name = name;
-        }
-        public String getName(){
-            return this.name;
-        }
 
         // mutate internal state
-        public void measureTemperature(double temperature){
-            this.temperature = temperature;
-            super.notifyObservers();
+        public void updateState(Object newState){
+            this.state = newState;
+            this.notifyObservers();
         }
-        public double getTemperature(){
-            return this.temperature;
+        // provide access to actual state
+        public Object getState(){
+            return this.state;
         }
     }
 
     // one kind of observer
-    static class Display implements IObserver<Double> {
+    static class Observer1 implements IObserver {
         @Override
-        public void update(IObserved<Double> observed){
-            if(observed instanceof WeatherStation) {
-                WeatherStation ws = (WeatherStation) observed;
-                System.out.println(ws.getName()+": the temperature is " + ws.getTemperature());
-            }
+        public void update(IObserved observed){
+            System.out.println("Observer1 - processed new state of Observed: "+observed.getState().toString());
         }
     }
-
     // other kind of observer
-    static class HeatAlarm implements IObserver<Double> {
-        private double treshold;
-
-        public HeatAlarm(double treshold){
-            this.treshold = treshold;
-        }
-
+    static class Observer2 implements IObserver {
         @Override
-        public void update(IObserved<Double> observed){
-            if(observed instanceof WeatherStation) {
-                WeatherStation ws = (WeatherStation) observed;
-                System.out.println(ws.getName()+": the temperature is " + ws.getTemperature());
-                if (ws.getTemperature() > this.treshold){
-                    System.out.println("Alarm! The temperature has risen above "+this.treshold);
-                }
-            }
+        public void update(IObserved observed){
+            System.out.println("Observer1 - processed new state of Observed: "+observed.getState().toString());
         }
     }
+
 }
