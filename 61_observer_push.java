@@ -11,7 +11,7 @@ so that when one object changes state, all of its dependents are notified and up
         Measurements measurements = new Measurements();
 
         // create Observed
-        WeatherStation ws = new WeatherStation("Mz/X Weather Station", measurements);
+        WeatherStation ws = new WeatherStation();
 
         // create Observer1
         Display lcdscreen = new Display();
@@ -36,36 +36,27 @@ so that when one object changes state, all of its dependents are notified and up
     // ===========
     // Observer
     interface Observer<T> {
-        public void update(Observed<T> observed);
+        public void update(T data);
     }
     
     // Observed
     static public class Observed<T> {
-        private String name;
-        private T state;
         private List<Observer<T>> observers = new ArrayList<>();
-        public Observed(String name, T state){
-            this.name = name;
-            this.state = state;
-        }
-        public String getName(){
-            return this.name;
-        }
+        
         public void register(Observer<T> o){
             this.observers.add(o);
         }
         public void remove(Observer<T> o){
             this.observers.remove(o);
         }
-        private void notifyObservers(){
+        private void notifyObservers(T newState){
             for (Observer<T> observer: this.observers){
-                observer.update(this);
+                observer.update(newState);
             }
         }
-        // mutate internal state via external call
+        // mutate (virtual) internal state via external call
         public void updateState(T newState){
-            this.state = newState;
-            this.notifyObservers();
+            this.notifyObservers(newState);
         }
     }
 
@@ -79,18 +70,13 @@ so that when one object changes state, all of its dependents are notified and up
 
     // Observed
     static class WeatherStation extends Observed<Measurements> {
-        public WeatherStation(String name, Measurements state){
-            super(name, state);
-        }
     }
 
     // one kind of Observer
     static class Display implements Observer<Measurements> {
         @Override
-        public void update(Observed<Measurements> observed){
-            System.out.println(observed.getName()
-                            +": the temperature is " 
-                            + observed.state.temperature);
+        public void update(Measurements data){
+            System.out.println("The temperature is " + data.temperature);
         }
     }
     // other kind of Observer
@@ -101,8 +87,8 @@ so that when one object changes state, all of its dependents are notified and up
         }
 
         @Override
-        public void update(Observed<Measurements> observed){
-            if (observed.state.temperature > this.temperatureTreshold)
+        public void update(Measurements data){
+            if (data.temperature > this.temperatureTreshold)
                 System.out.println("Alarm! The temperature has risen above "
                                     +this.temperatureTreshold);
         }
