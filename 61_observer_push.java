@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Observer_push_pattern_uncle_bob {
+class Observer_push_pattern {
 /*
 The Observer pattern keeps your objects in the know when something they care about happens.
 The Observer Pattern defines a one-to-many dependency between objects
