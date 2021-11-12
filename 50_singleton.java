@@ -10,19 +10,19 @@ access its only object without need to instantiate the object of the class.
         //Compile Time Error: The constructor SingleObject() is not visible
         //  SingleObject object = new SingleObject();
 
-        SingleObject so1 = SingleObject.getInstance();
-        SingleObject so2 = SingleObject.getInstance();
+        SingleObject so1 = SingleObject.instance;
+        SingleObject so2 = SingleObject.instance;
         System.out.println("The two objects are the same: " + (so1==so2) );
     }
 
     static class SingleObject{
-        private static SingleObject self;
+        public static SingleObject instance =  new SingleObject();
+        // other class attributes
 
-        private SingleObject(){}
-
-        public static SingleObject getInstance(){
-            if (self==null) return self=new SingleObject();
-            else return self;
+        private SingleObject(){
+            // .... stuff for one-off initialization
         }
+        // other methods
+        // ...
     }
 }

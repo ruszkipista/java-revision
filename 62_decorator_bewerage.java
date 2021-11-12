@@ -1,5 +1,7 @@
 class Decorator_pattern_bewerage {
 /*
+The Decorator Pattern attaches additional responsibilities to an object dynamically.
+Decorators provide a flexible alternative to subclassing for extending functionality.
 */    
     public static void main(String[] args) {
         // create base object
