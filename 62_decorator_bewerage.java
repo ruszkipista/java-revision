@@ -12,6 +12,10 @@ class Decorator_pattern_bewerage {
         // print description and price
         System.out.println(servedCoffe.getDescription()
                             +" price: " + servedCoffe.getPrice());
+        // give 10% discount
+        servedCoffe = new DiscountDecoratedBewerage("-10% discount", 0.1, servedCoffe);
+        System.out.println(servedCoffe.getDescription()
+                            +" price: " + servedCoffe.getPrice());
     }
 
 
@@ -48,17 +52,29 @@ class Decorator_pattern_bewerage {
             return this.decoratedBewerage.getDescription() 
                   +", " + this.description;
         }
+    }
+
+    // a concrete class of DecoratedBewerage
+    // cumulates the price
+    static class AddOnDecoratedBewerage extends DecoratedBewerage{
+        public AddOnDecoratedBewerage(String description, double price, Bewerage decorated){
+            super(description, price, decorated);
+        }
         @Override
         public double getPrice(){
             return this.decoratedBewerage.getPrice() + this.price;
         }
     }
 
-    // concrete class of DecoratedBewerage
-    static class AddOnDecoratedBewerage extends DecoratedBewerage{
-        public AddOnDecoratedBewerage(String description, double price, Bewerage decorated){
+    // another concrete class of DecoratedBewerage
+    // discounts the price
+    static class DiscountDecoratedBewerage extends DecoratedBewerage{
+        public DiscountDecoratedBewerage(String description, double price, Bewerage decorated){
             super(description, price, decorated);
         }
+        @Override
+        public double getPrice(){
+            return this.decoratedBewerage.getPrice() * (1-this.price);
+        }
     }
-
 }
