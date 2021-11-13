@@ -6,10 +6,12 @@ class Decorator_Pattern_modem {
         Modem dlink = new RealModem();
         User me = new User(true);
         me.setupModem(dlink);
-        me.requestModemToConnect();
         User you = new User(false);
         you.setupModem(dlink);
+
+        me.requestModemToConnect();
         you.requestModemToConnect();
+        me.requestModemToConnect();
     }
 
     interface Modem{
@@ -29,7 +31,9 @@ class Decorator_Pattern_modem {
 
     static abstract class SpeakerVolumePreSetModem implements Modem{
         Modem realModem;
-        public void dial(){ 
+        int speakerVolumePreSet;
+        public void dial(){
+            realModem.setSpeakerVolume(this.speakerVolumePreSet);
             realModem.dial(); 
         }
         public void setSpeakerVolume(int volume){
@@ -40,13 +44,13 @@ class Decorator_Pattern_modem {
     static class LoudModem extends SpeakerVolumePreSetModem{
         public LoudModem(Modem modem){
             realModem = modem;
-            realModem.setSpeakerVolume(99);
+            super.speakerVolumePreSet=99;
         }
     }
     static class QuietModem extends SpeakerVolumePreSetModem{
         public QuietModem(Modem modem){
             realModem = modem;
-            realModem.setSpeakerVolume(0);
+            super.speakerVolumePreSet=0;
         }
     }
 
