@@ -1,4 +1,4 @@
-class tests {
+class Tutorial_tests {
     public static void main(String[] args) {
         char[] pw = {'1','2','3','4','a','b','c','d'};
         System.out.println(check(pw));
