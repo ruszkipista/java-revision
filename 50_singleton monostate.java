@@ -3,8 +3,9 @@ import static org.junit.Assert.assertEquals;
 class Singleton_Pattern_Monostate {
 /*
 This version of Singleton is virtual, because it relies on static class variables
-whis are shared between all instances of the same class.
+which are shared between all instances of the same class.
 Although the instances are different, they behave like having only one instance for the same class.
+For external parties it is hidden, that it is Singleton
 There can be only static methods, mutating static class variables.
 */
     public static void main(String[] args) {

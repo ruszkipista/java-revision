@@ -1,4 +1,4 @@
-class Decorator_pattern_bewerage {
+class Decorator_Pattern_bewerage {
 /*
 The Decorator Pattern attaches additional responsibilities to an object dynamically.
 Decorators provide a flexible alternative to subclassing for extending functionality.
