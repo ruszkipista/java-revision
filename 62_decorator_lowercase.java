@@ -4,16 +4,21 @@ import java.io.StringReader;
 
 class Decorator_Pattern_lowercase {
     /*
-    write a decorator that converts all uppercase characters to lowercase in the Read stream.
+    write a decorator that converts all uppercase characters to lowercase from a Read stream.
     */    
     public static void main(String[] args) throws IOException {
         Reader sr = new ReaderToLowercase(new StringReader("I know the Decorator Pattern therefore I RULE!"));
         int c;
-        while ((c=sr.read()) > 0){
-            System.out.print((char)c);
+        try {
+            while ((c=sr.read()) > 0){
+                System.out.print((char)c);
+            }                
+            System.out.println();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            sr.close();
         }
-        System.out.println();
-        sr.close();
     }
     // abscract decorator class
     static abstract class DecoratedReader extends Reader{
@@ -49,11 +54,9 @@ class Decorator_Pattern_lowercase {
         // This is not used in the example, but had to implement
         @Override
         public int read(char[] charray, int offset, int len) throws IOException{
-            int numCharsRead;
-            while ((numCharsRead=super.reader.read(charray,offset,len)) >= 0){
-                for (int i=offset;i<offset+numCharsRead; i++)
-                  charray[i] = Character.toLowerCase(charray[i]);
-            }
+            int numCharsRead = super.reader.read(charray,offset,len);
+            for (int i=offset; i<offset+numCharsRead; i++)
+                charray[i] = Character.toLowerCase(charray[i]);
             return numCharsRead;
         }
     }
