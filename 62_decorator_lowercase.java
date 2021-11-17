@@ -4,10 +4,10 @@ import java.io.StringReader;
 
 class Decorator_Pattern_lowercase {
     /*
+    write a decorator that converts all uppercase characters to lowercase in the Read stream.
     */    
     public static void main(String[] args) throws IOException {
-        Reader sr = new StringReader("I know the Decorator Pattern therefore I RULE!");
-        sr = new ReaderToLowercase(sr);
+        Reader sr = new ReaderToLowercase(new StringReader("I know the Decorator Pattern therefore I RULE!"));
         int c;
         while ((c=sr.read()) > 0){
             System.out.print((char)c);
@@ -26,6 +26,7 @@ class Decorator_Pattern_lowercase {
         public int read() throws IOException{
             return this.reader.read();
         }
+        // This is not used in the example, but had to implement        
         @Override
         public int read(char[] charray, int offset, int len) throws IOException{
             return this.reader.read(charray,offset,len);
@@ -45,10 +46,15 @@ class Decorator_Pattern_lowercase {
             int c = super.reader.read();
             return (c==-1)? c : Character.toLowerCase((char)c);
         }
+        // This is not used in the example, but had to implement
         @Override
         public int read(char[] charray, int offset, int len) throws IOException{
-            int c = super.reader.read(charray,offset,len);
-            return c;
+            int numCharsRead;
+            while ((numCharsRead=super.reader.read(charray,offset,len)) >= 0){
+                for (int i=offset;i<offset+numCharsRead; i++)
+                  charray[i] = Character.toLowerCase(charray[i]);
+            }
+            return numCharsRead;
         }
     }
 
