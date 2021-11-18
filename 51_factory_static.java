@@ -1,4 +1,4 @@
-class Factory_pattern {
+class Factory_pattern_static_method {
 /*
 Factory method is a creational design pattern which solves the problem
 of creating product objects without specifying their concrete classes.
@@ -11,8 +11,7 @@ this method to change the class of objects that will be created.
         shape1.draw();
         Shape shape2 = ShapeFactory.createShape(ShapeFactory.Shapes.RECTANGLE);
         shape2.draw();
-        Shape shape3 = ShapeFactory.createShape(ShapeFactory.Shapes.CIRCLE);
-        shape3.draw();
+        ShapeFactory.createShape(ShapeFactory.Shapes.CIRCLE).draw();
     }
     
     // Shape interface to be implemented by sub-classes of ShapeFactory
