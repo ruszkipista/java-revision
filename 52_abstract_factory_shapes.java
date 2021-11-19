@@ -1,4 +1,4 @@
-class Abstract_Factory_Pattern {
+class Abstract_Factory_Pattern_Shapes {
 /*
 Abstract Factory patterns work with a super-factory which creates other factories.
 This factory is also called as factory of factories. This type of design pattern comes
