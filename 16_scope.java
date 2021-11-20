@@ -18,6 +18,11 @@ class Scope {
         Scope pojo2 = new Scope();
         pojo2.instance_method();
         pojo2.instance_method();
+
+        System.out.println();
+        Person p1 = new Person("Hulu");
+        Person p2 = new Person("Zulu");
+        p1.greet(p2);
     }
 
     // class static method uses class variable
@@ -38,6 +43,19 @@ class Scope {
             byte block_local = 100;
             System.out.println(" Method local: " + ++method_local +
                                " Block local: " + ++block_local);
+        }
+    }
+
+    static class Person{
+        private String name;
+        public Person(String name){
+            this.name = name;
+        }
+
+        public void greet(Person other){
+            // free access to an other object's private attribute
+            // if they have the same type
+            System.out.println("Hello "+other.name+", I am "+this.name);
         }
     }
 }

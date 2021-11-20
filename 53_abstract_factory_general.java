@@ -23,13 +23,12 @@ class Abstract_Factory_Pattern {
         public abstract ProductX createProductX();
         public abstract ProductY createProductY();
     }
+
     static class FactoryA extends AbstractFactory{
-		
         @Override
         public ProductX createProductX() {
             return new ProductAX();
         }
-        
         @Override
         public ProductY createProductY() {
             return new ProductAY();
@@ -40,7 +39,6 @@ class Abstract_Factory_Pattern {
         public ProductX createProductX() {
             return new ProductBX();
         }
-        
         @Override
         public ProductY createProductY() {
             return new ProductBY();

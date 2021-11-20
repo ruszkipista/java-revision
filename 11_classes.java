@@ -9,7 +9,7 @@ class classes {
 
         System.out.println("Last assigned ID:"+Pet.get_last_ID());
 
-        // clone Pet object to a new ID
+        // clone Pet type object to a new ID
         Pet cat_copy = new Pet(newcat);
         cat_copy.printPetDetails();
 
@@ -27,9 +27,6 @@ class classes {
         private String petName;
         private int petAge;
     
-        // default constructor
-        // public Pet(){}
-
         // constructor - same name as the class
         // no return type, not even "void"
         public Pet(String type, String name, int age) {
@@ -44,7 +41,7 @@ class classes {
         
         // constructor without any paramters
         public Pet() {
-            // callig an other constructor
+            // callig an other constructor with different signature
             this("","",0);
         }
 
