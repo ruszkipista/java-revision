@@ -23,6 +23,9 @@ class Scope {
         Person p1 = new Person("Hulu");
         Person p2 = new Person("Zulu");
         p1.greet(p2);
+
+        SubClass sb = new SubClass();
+        sb.doSomething();
     }
 
     // class static method uses class variable
@@ -56,6 +59,36 @@ class Scope {
             // free access to an other object's private attribute
             // if they have the same type
             System.out.println("Hello "+other.name+", I am "+this.name);
+        }
+    }
+
+    // 
+    static class SuperClass{
+        private   boolean privateVar;
+                  boolean packagePrivate; // no access modifier: package-private
+        protected boolean protectedVar;
+        public    boolean publicVar;
+    }
+    static class SubClass extends SuperClass{
+        void doSomething(){
+            //this.privateVar = true;   // Not visible in SubClass like this
+            // although, visible through "super."
+            super.privateVar = true;
+            System.out.println(super.privateVar);
+
+            // the package-private is accessible for all classes in the same package
+            // but not accessible in sub-classes in a different package
+            this.packagePrivate = true;
+            System.out.println(this.packagePrivate);
+
+            // the protected is accessible for all classes in the same package
+            // also accessible in the sub-classes in a different package
+            this.protectedVar = true;
+            System.out.println(this.protectedVar);
+
+            // the public is accessible for all classes in all packagees
+            this.publicVar = true;
+            System.out.println(this.publicVar);
         }
     }
 }
