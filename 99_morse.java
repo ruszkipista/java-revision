@@ -30,9 +30,9 @@ class Morse_code {
         public String decodeFile(String filename) {
             char[] inputText = getFileContent(filename);
             /* Create a list of MorseCharacters (morseStream) from input text */
-            List<MorseSymbol> morseStream = createMorseCypherStream(inputText);
-            /* decode the morseStream and return the result */
-            return decodeMorseStream(morseStream);
+            List<MorseSymbol> morseSymbolStream = createMorseSymbolStream(inputText);
+            /* decode the morseSymbolStream and return the result */
+            return decodeMorseSymbolStream(morseSymbolStream);
         }
 
         private char[] getFileContent(String filename) {
@@ -49,8 +49,8 @@ class Morse_code {
 
         private enum Status {CS_STARTED,CS_LONG,CS_ENDED,MC_ENDED};
 
-        private List<MorseSymbol> createMorseCypherStream (char[] inputStream) {
-        /* from inputStrem we create a CypherStream and split up into a MorseStream  
+        private List<MorseSymbol> createMorseSymbolStream (char[] inputStream) {
+        /* from inputStrem we create a CypherStream and split it up into a MorseSymbolStream  
            Eventually, we have to clean the content of the read file as
            Eric pressed extensively on ON or OFF.
         a MorseStream (which is implemented as an ArrayList) consists of multiple MorseCharacters,
@@ -58,7 +58,7 @@ class Morse_code {
         a CypherSymbol starts with CYPHER_ON and ends with CYPHER_OFF, 
           LONG = CYPHER_ON + CYPHER_ON + <<any more CYPHER_ON>> + CYPHER_OFF 
           SHORT = CYPHER_ON + CYPHER_OFF
-        if there's one more CYPHER_OFF after CYPHER_OFF, it completes the MorseCharacter. 
+        if there's one more CYPHER_OFF after CYPHER_OFF, it completes a MorseCharacter. 
         */
             List<MorseSymbol> morseStream = new ArrayList<>();
             List<CypherSymbol> cypherSymbols = new ArrayList<>();
@@ -92,6 +92,10 @@ class Morse_code {
                 else if (status == Status.CS_LONG && inputChar==CYPHER_ON){
                     continue;
                 }
+                else if (status == Status.CS_LONG && inputChar==CYPHER_OFF){
+                    status = Status.CS_ENDED;
+                    continue;
+                }
             }
             if (cypherSymbols.size()>0){
                 morseStream.add(new MorseSymbol(cypherSymbols));
@@ -99,7 +103,7 @@ class Morse_code {
             return morseStream;            
         }
         
-        private String decodeMorseStream(List<MorseSymbol> morseStream) {
+        private String decodeMorseSymbolStream(List<MorseSymbol> morseStream) {
             /*
             * The morseStream is decoded and returned as a human-readable text. 
             * Therefore, it has to be checked whether the morse code symbol (MorseCharacter) 
@@ -113,10 +117,18 @@ class Morse_code {
             * If it has been found, append the (translated) character to the translated text.
             * Otherwise, a question mark is appended at this position in the text.
             */
+            boolean foundMatch;
             for (MorseSymbol morseSymbol : morseStream) {
+                foundMatch = false;
                 for (MorseCharacter potentialMatch : morseAlphabet) {
-                    if (morseSymbol == potentialMatch.morseSymbol)
+                    if (morseSymbol.equals(potentialMatch.morseSymbol)) {
+                        foundMatch = true;
                         translatedText.append(potentialMatch.getCharacter() + " ");
+                        break;
+                    }
+                }
+                if (!foundMatch){
+                    translatedText.append("?");
                 }
             }
             return translatedText.toString();
