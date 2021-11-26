@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 class Morse_code {
@@ -21,18 +22,18 @@ class Morse_code {
     static class Decoder {
         private static final char CYPHER_ON = '+';
         private static final char CYPHER_OFF = '-';
-        private List<MorseCharacter> morseAlphabet;
+        private HashMap<MorseCharacter, Character> morseCharToAsciiDict;
         
         public Decoder() {
-            morseAlphabet = MorseDictionary.get();
+            morseCharToAsciiDict = MorseDictionary.getMorseToAsciiDict();
         }
         
         public String decodeFile(String filename) {
             char[] inputText = getFileContent(filename);
             /* Create a list of MorseCharacters (morseStream) from input text */
-            List<MorseSymbol> morseSymbolStream = createMorseSymbolStream(inputText);
-            /* decode the morseSymbolStream and return the result */
-            return decodeMorseSymbolStream(morseSymbolStream);
+            List<MorseCharacter> morseCharList = createMorseCharacterStream(inputText);
+            /* decode the morseCharList and return the result string */
+            return decodeMorseCharacterList(morseCharList);
         }
 
         private char[] getFileContent(String filename) {
@@ -49,8 +50,8 @@ class Morse_code {
 
         private enum Status {CS_STARTED,CS_LONG,CS_ENDED,MC_ENDED};
 
-        private List<MorseSymbol> createMorseSymbolStream (char[] inputStream) {
-        /* from inputStrem we create a CypherStream and split it up into a MorseSymbolStream  
+        private List<MorseCharacter> createMorseCharacterStream (char[] inputStream) {
+        /* from inputStrem we create a CypherStream and split it up into a MorseCharacterStream  
            Eventually, we have to clean the content of the read file as
            Eric pressed extensively on ON or OFF.
         a MorseStream (which is implemented as an ArrayList) consists of multiple MorseCharacters,
@@ -60,7 +61,7 @@ class Morse_code {
           SHORT = CYPHER_ON + CYPHER_OFF
         if there's one more CYPHER_OFF after CYPHER_OFF, it completes a MorseCharacter. 
         */
-            List<MorseSymbol> morseStream = new ArrayList<>();
+            List<MorseCharacter> morseStream = new ArrayList<>();
             List<CypherSymbol> cypherSymbols = new ArrayList<>();
 
             Status status = Status.MC_ENDED;
@@ -70,7 +71,7 @@ class Morse_code {
                 }
                 else if (status == Status.CS_ENDED && inputChar==CYPHER_OFF){
                     status = Status.MC_ENDED;
-                    morseStream.add(new MorseSymbol(cypherSymbols));
+                    morseStream.add(new MorseCharacter(cypherSymbols));
                     cypherSymbols = new ArrayList<>();
                     continue;
                 }
@@ -98,38 +99,29 @@ class Morse_code {
                 }
             }
             if (cypherSymbols.size()>0){
-                morseStream.add(new MorseSymbol(cypherSymbols));
+                morseStream.add(new MorseCharacter(cypherSymbols));
             }
             return morseStream;            
         }
         
-        private String decodeMorseSymbolStream(List<MorseSymbol> morseStream) {
+        private String decodeMorseCharacterList(List<MorseCharacter> morseStream) {
             /*
-            * The morseStream is decoded and returned as a human-readable text. 
+            * The MorseCharacterList is decoded and returned as a human-readable text. 
             * Therefore, it has to be checked whether the morse code symbol (MorseCharacter) 
-            * exists in the morseAlphabet. 
+            * exists in the morseCharToAsciiDict. 
             * In case it does, it is appended to the text, otherwise a question mark is added. 
             * Each character is followed by a whitespace.
             */
             
             StringBuilder translatedText = new StringBuilder();
-            /* Please check whether morseCharacter is found in the morseAlphabet here. 
+            /* Please check whether morseCharacter is found in the morseCharToAsciiDict here. 
             * If it has been found, append the (translated) character to the translated text.
             * Otherwise, a question mark is appended at this position in the text.
             */
-            boolean foundMatch;
-            for (MorseSymbol morseSymbol : morseStream) {
-                foundMatch = false;
-                for (MorseCharacter potentialMatch : morseAlphabet) {
-                    if (morseSymbol.equals(potentialMatch.morseSymbol)) {
-                        foundMatch = true;
-                        translatedText.append(potentialMatch.getCharacter() + " ");
-                        break;
-                    }
-                }
-                if (!foundMatch){
-                    translatedText.append("?");
-                }
+            for (MorseCharacter morseSymbol : morseStream) {
+                if (morseCharToAsciiDict.containsKey(morseSymbol)) {
+                    translatedText.append(morseCharToAsciiDict.get(morseSymbol) + " ");
+                } else translatedText.append("? ");
             }
             return translatedText.toString();
         }
@@ -139,57 +131,42 @@ class Morse_code {
         /* A MorseCharacter consists of a unique sequence of CypherSymbols */
         SHORT, LONG, BLANK
     }
-    static public class MorseSymbol{
+    static public class MorseCharacter{
+        /* a MorseCharacter is a list of CypherSymbols */
         public CypherSymbol[] cypherSymbols;
 
-        public MorseSymbol(int lenght){
+        public MorseCharacter(int lenght){
             cypherSymbols = new CypherSymbol[lenght];
         }
-        public MorseSymbol(List<CypherSymbol> cypherSymbolsList){
+        public MorseCharacter(List<CypherSymbol> cypherSymbolsList){
             cypherSymbols = cypherSymbolsList.toArray(new CypherSymbol[cypherSymbolsList.size()]);
         }
-        public boolean equals(MorseSymbol other) {
-            /* If two MorseSymbols have the same size and 
-            * each of their CypherSymbols are equal, the MorseSymbols are equal.
+        @Override
+        public boolean equals(Object other) {
+            /* If two MorseCharacters have the same size and 
+            * each of their CypherSymbols are equal, the MorseCharacters are equal.
             */
-            boolean result = true;
-            if (this.cypherSymbols.length == other.cypherSymbols.length){
-                for (int i=0; i<cypherSymbols.length; i++)
-                    if (this.cypherSymbols[i] != other.cypherSymbols[i]){
-                        result = false;
-                        break;
-                    }
-            } else result = false;
-            return result;
+            if (! (other instanceof MorseCharacter))
+                return false;
+
+            MorseCharacter ms = (MorseCharacter) other;
+            if (this.cypherSymbols.length != ms.cypherSymbols.length)
+                return false;
+            
+            for (int i=0; i<this.cypherSymbols.length; i++)
+                if (this.cypherSymbols[i] != ms.cypherSymbols[i])
+                    return false;
+            return true;
         }
+
         public int length(){
-            return cypherSymbols.length;
+            return this.cypherSymbols.length;
         }
         public CypherSymbol get(int index){
-            return cypherSymbols[index];
+            return this.cypherSymbols[index];
         }
         public void add(int index, CypherSymbol cypherSymbol){
-            cypherSymbols[index] = cypherSymbol;
-        }
-    }
-
-    static public class MorseCharacter {
-        /* A MorseCharacter consists of multiple concatenated CypherSymbols
-         * and the corresponding ASCII character (the translation of the code).
-         */
-        private MorseSymbol morseSymbol;
-        private char character;
-        
-        public MorseCharacter(Character character, MorseSymbol morseSymbol){
-            this.character = character;
-            this.morseSymbol = morseSymbol;
-        }
-
-        public char getCharacter(){
-            return character;
-        }
-        public MorseSymbol getMorseSymbol(){
-            return morseSymbol;
+            this.cypherSymbols[index] = cypherSymbol;
         }
     }
 
@@ -208,17 +185,17 @@ class Morse_code {
                 ".----","..---", "...--","....-",".....",        //12345
                 "-....","--...", "---..","----.","-----"};       //67890
 
-        public static List<MorseCharacter> get() {
-            /* Here we create the MorseDictionary for our code. */
-            List<MorseCharacter> morseAlphabet = new ArrayList<MorseCharacter>();
+        public static HashMap<MorseCharacter, Character> getMorseToAsciiDict() {
+            /* Here we create the MorseToAsciiDictionary for our code. */
+            HashMap<MorseCharacter, Character> dict = new HashMap<>(60);
             for (int i=0;i<characters.length;i++){
-                morseAlphabet.add(new MorseCharacter(characters[i], getMorseSymbol(codes[i])));
+                dict.put(getMorseCharacter(codes[i]), characters[i]);
             }
-            return morseAlphabet;
+            return dict;
         }
 
-        private static MorseSymbol getMorseSymbol(String codestr){
-            MorseSymbol ms = new MorseSymbol(codestr.length());
+        private static MorseCharacter getMorseCharacter(String codestr){
+            MorseCharacter ms = new MorseCharacter(codestr.length());
             int i;
             for (i=0; i<ms.length(); i++){
                 if (codestr.charAt(i)=='.')
