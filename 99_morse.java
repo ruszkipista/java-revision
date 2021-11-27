@@ -25,22 +25,20 @@ class Morse_code {
         private HashMap<MorseCharacter, Character> morseCharToAsciiDict;
         
         public Decoder() {
-            morseCharToAsciiDict = MorseDictionary.getMorseToAsciiDict();
+            morseCharToAsciiDict = MorseCharacter.getMorseCharToAsciiDict();
         }
         
         public String decodeFile(String filename) {
-            char[] inputText = getFileContent(filename);
-            /* Create a list of MorseCharacters (morseStream) from input text */
-            List<MorseCharacter> morseCharList = createMorseCharacterStream(inputText);
-            /* decode the morseCharList and return the result string */
-            return decodeMorseCharacterList(morseCharList);
+            String inputText = getFileContent(filename);
+            // Create a list of MorseCharacters from input text
+            List<MorseCharacter> morseChars = createMorseCharacterList(inputText);
+            // decode the list and return a cleartext string
+            return decodeMorseCharacterList(morseChars);
         }
 
-        private char[] getFileContent(String filename) {
-            String content;
+        private String getFileContent(String filename) {
             try {
-                content = new String ( Files.readAllBytes( Paths.get(filename) ) );
-                return content.toCharArray();
+                return new String( Files.readAllBytes( Paths.get(filename) ) );
             } 
             catch (IOException e) {
                 e.printStackTrace();
@@ -50,160 +48,157 @@ class Morse_code {
 
         private enum Status {CS_STARTED,CS_LONG,CS_ENDED,MC_ENDED};
 
-        private List<MorseCharacter> createMorseCharacterStream (char[] inputStream) {
-        /* from inputStrem we create a CypherStream and split it up into a MorseCharacterStream  
+        private List<MorseCharacter> createMorseCharacterList (String inputText) {
+        /* from inputText we create a CypherStream and split it up into a MorseCharacterList  
            Eventually, we have to clean the content of the read file as
            Eric pressed extensively on ON or OFF.
-        a MorseStream (which is implemented as an ArrayList) consists of multiple MorseCharacters,
-        a MorseCharacter consists of multiple CypherSymbols
+        a MorseCharacterList consists of multiple MorseCharacters,
+        a MorseCharacter consists of multiple CypherSymbols (SHORT and LONG)
         a CypherSymbol starts with CYPHER_ON and ends with CYPHER_OFF, 
           LONG = CYPHER_ON + CYPHER_ON + <<any more CYPHER_ON>> + CYPHER_OFF 
           SHORT = CYPHER_ON + CYPHER_OFF
         if there's one more CYPHER_OFF after CYPHER_OFF, it completes a MorseCharacter. 
         */
-            List<MorseCharacter> morseStream = new ArrayList<>();
-            List<CypherSymbol> cypherSymbols = new ArrayList<>();
+            List<MorseCharacter> morseCharList = new ArrayList<>();
+            MorseCharacter morseCharacter = new MorseCharacter();
 
             Status status = Status.MC_ENDED;
-            for (char inputChar:inputStream){
-                if (status == Status.MC_ENDED && inputChar==CYPHER_OFF) {
-                    continue;
-                }
-                else if (status == Status.CS_ENDED && inputChar==CYPHER_OFF){
+            char inputChar;
+            for (int i=0; i<inputText.length();i++){
+                inputChar = inputText.charAt(i);
+                if (status == Status.CS_ENDED && inputChar==CYPHER_OFF){
                     status = Status.MC_ENDED;
-                    morseStream.add(new MorseCharacter(cypherSymbols));
-                    cypherSymbols = new ArrayList<>();
-                    continue;
+                    morseCharList.add(morseCharacter);
+                    morseCharacter = new MorseCharacter();
                 }
                 else if ((status == Status.CS_ENDED || status == Status.MC_ENDED)
                     && inputChar==CYPHER_ON){
                     status = Status.CS_STARTED;
-                    continue;
                 }
                 else if (status == Status.CS_STARTED && inputChar==CYPHER_OFF){
                     status = Status.CS_ENDED;
-                    cypherSymbols.add(CypherSymbol.SHORT);
-                    continue;
+                    morseCharacter.addShortSymbol();
                 }
                 else if (status == Status.CS_STARTED && inputChar==CYPHER_ON){
                     status = Status.CS_LONG;
-                    cypherSymbols.add(CypherSymbol.LONG);
-                    continue;
-                }
-                else if (status == Status.CS_LONG && inputChar==CYPHER_ON){
-                    continue;
+                    morseCharacter.addLongSymbol();
                 }
                 else if (status == Status.CS_LONG && inputChar==CYPHER_OFF){
                     status = Status.CS_ENDED;
-                    continue;
                 }
             }
-            if (cypherSymbols.size()>0){
-                morseStream.add(new MorseCharacter(cypherSymbols));
+            if (!(morseCharacter.equals(new MorseCharacter()))){
+                morseCharList.add(morseCharacter);
             }
-            return morseStream;            
+            return morseCharList;            
         }
         
-        private String decodeMorseCharacterList(List<MorseCharacter> morseStream) {
+        private String decodeMorseCharacterList(List<MorseCharacter> morseCharacters) {
             /*
-            * The MorseCharacterList is decoded and returned as a human-readable text. 
-            * Therefore, it has to be checked whether the morse code symbol (MorseCharacter) 
-            * exists in the morseCharToAsciiDict. 
-            * In case it does, it is appended to the text, otherwise a question mark is added. 
-            * Each character is followed by a whitespace.
-            */
-            
+            The MorseCharacterList is decoded and returned as a human-readable text. 
+            For each MorseCharacter checks if it exists in the morse alphabet. 
+            In case it does, it is appended to the text, otherwise a question mark is added. 
+            Each output character is followed by a whitespace.
+            */            
             StringBuilder translatedText = new StringBuilder();
-            /* Please check whether morseCharacter is found in the morseCharToAsciiDict here. 
-            * If it has been found, append the (translated) character to the translated text.
-            * Otherwise, a question mark is appended at this position in the text.
-            */
-            for (MorseCharacter morseSymbol : morseStream) {
-                if (morseCharToAsciiDict.containsKey(morseSymbol)) {
-                    translatedText.append(morseCharToAsciiDict.get(morseSymbol) + " ");
-                } else translatedText.append("? ");
+
+            for (MorseCharacter morseCharacter : morseCharacters) {
+                if (morseCharToAsciiDict.containsKey(morseCharacter))
+                    translatedText.append(morseCharToAsciiDict.get(morseCharacter) + " ");
+                else 
+                    translatedText.append("? ");
             }
             return translatedText.toString();
         }
 	}
 
-    public static enum CypherSymbol {
-        /* A MorseCharacter consists of a unique sequence of CypherSymbols */
-        SHORT, LONG, BLANK
-    }
     static public class MorseCharacter{
         /* a MorseCharacter is a list of CypherSymbols */
-        public CypherSymbol[] cypherSymbols;
+        // the Morse Alphabet here represented as human readable strings
+        // in each string the first character is the ASCII character, the rest are CypherSymbols
+        private static final String[] CODESTRINGS = {
+            "a.-",   "b-...", "c-.-.",  "d-..",  "e.",    "f..-.",
+            "g--.",  "h....", "i..",    "j.---", "k-.-",  "l.-..",
+            "m--",   "n-.",   "o---",   "p.--.", "q--.-", "r.-.",
+            "s...",  "t-",    "u..-",   "v...-", "w.--",  "x-..-",
+            "y-.--", "z--..", "?..--..","..-.-", ",--..--",
+            "1.----","2..---","3...--", "4....-","5.....",
+            "6-....","7--...","8---..", "9----.","0-----"};
+        private static final char SHORT = '.'; //represents CypherSymbol.SHORT
+        private static final char LONG = '-';  //represents CypherSymbol.LONG
+    
+        // each CypherSymbol is represented by one bit
+        //   CypherSymbol.SHORT represented by bit 0
+        //   CypherSymbol.LONG represented by bit 1
+        // a MorseCharacter is stored in one byte (8 bits),
+        // because the longest morse characters are 6 bits long
+        // e.g. ".-." (SHORT LONG SHORT) 
+        // stored as character:0b010, lenght:3 (bits)
+        private byte character;  
+        private byte length;
 
-        public MorseCharacter(int lenght){
-            cypherSymbols = new CypherSymbol[lenght];
+        public MorseCharacter(){
+            // constructor for start building a character
+            this.character = 0;
+            this.length = 0;
         }
-        public MorseCharacter(List<CypherSymbol> cypherSymbolsList){
-            cypherSymbols = cypherSymbolsList.toArray(new CypherSymbol[cypherSymbolsList.size()]);
+        public void addShortSymbol(){
+            // shift all bits to the left by 1 position, lowest bits gets 0
+            this.character <<= 1;
+            this.length++;            
         }
-        @Override
-        public boolean equals(Object other) {
-            /* If two MorseCharacters have the same size and 
-            * each of their CypherSymbols are equal, the MorseCharacters are equal.
+        public void addLongSymbol(){
+            // shift all bits to the left by 1 position
+            // lowest bit is set to 1
+            this.character <<= 1;
+            this.character |= 0b1;
+            this.length++;
+        }        
+
+        public MorseCharacter(String codestr, char cypherSymbolLong, char cypherSymbolShort){
+            /* constructor from string
+               e.g. from ".-.", where LONG='-', SHORT='.' 
             */
-            if (! (other instanceof MorseCharacter))
-                return false;
-
-            MorseCharacter ms = (MorseCharacter) other;
-            if (this.cypherSymbols.length != ms.cypherSymbols.length)
-                return false;
-            
-            for (int i=0; i<this.cypherSymbols.length; i++)
-                if (this.cypherSymbols[i] != ms.cypherSymbols[i])
-                    return false;
-            return true;
+            this();
+            for (int i=0; i<codestr.length(); i++){
+                if (codestr.charAt(i)==cypherSymbolLong)
+                    this.addLongSymbol();
+                else if (codestr.charAt(i)==cypherSymbolShort)
+                    this.addShortSymbol();
+            }
         }
 
-        public int length(){
-            return this.cypherSymbols.length;
-        }
-        public CypherSymbol get(int index){
-            return this.cypherSymbols[index];
-        }
-        public void add(int index, CypherSymbol cypherSymbol){
-            this.cypherSymbols[index] = cypherSymbol;
-        }
-    }
-
-    static class MorseDictionary {
-        private static final char[] characters = {
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-            'y', 'z', '?', '.', ',', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
-        // Morse codes as strings
-        private static final String[] codes
-            = { ".-",   "-...", "-.-.",  "-..",  ".",    "..-.", //abcdef
-                "--.",  "....", "..",    ".---", "-.-",  ".-..", //ghijkl
-                "--",   "-.",   "---",   ".--.", "--.-", ".-.",  //mnopqr
-                "...",  "-",    "..-",   "...-", ".--",  "-..-", //stuvwx
-                "-.--", "--..", "..--..",".-.-", "--..--",       //yz?.,
-                ".----","..---", "...--","....-",".....",        //12345
-                "-....","--...", "---..","----.","-----"};       //67890
-
-        public static HashMap<MorseCharacter, Character> getMorseToAsciiDict() {
-            /* Here we create the MorseToAsciiDictionary for our code. */
+        public static HashMap<MorseCharacter, Character> getMorseCharToAsciiDict() {
+            /* Create a MorseCharacter => ASCII dictionary */
             HashMap<MorseCharacter, Character> dict = new HashMap<>(60);
-            for (int i=0;i<characters.length;i++){
-                dict.put(getMorseCharacter(codes[i]), characters[i]);
+            char asciiChar;
+            String cypherChars;
+            for (int i=0; i<CODESTRINGS.length; i++){
+                asciiChar = CODESTRINGS[i].charAt(0);
+                cypherChars = CODESTRINGS[i].substring(1);
+                MorseCharacter morseChar = new MorseCharacter(cypherChars, LONG, SHORT);
+                dict.put(morseChar, asciiChar);
             }
             return dict;
         }
 
-        private static MorseCharacter getMorseCharacter(String codestr){
-            MorseCharacter ms = new MorseCharacter(codestr.length());
-            int i;
-            for (i=0; i<ms.length(); i++){
-                if (codestr.charAt(i)=='.')
-                    ms.add(i,CypherSymbol.SHORT);
-                else 
-                    ms.add(i,CypherSymbol.LONG);
-            }
-            return ms;
+        @Override
+        public int hashCode(){
+            return (int) this.character;
         }
-    }    
+
+        @Override
+        public boolean equals(Object other) {
+            /* two MorseCharacters are equal, if they have the same lenght and each bits are equal. */
+            if (! (other instanceof MorseCharacter))
+                return false;
+
+            MorseCharacter mc = (MorseCharacter) other;
+            if (this.length == mc.length && this.character == mc.character)
+                return true;
+
+            return false;
+        }
+    }
+
 }
