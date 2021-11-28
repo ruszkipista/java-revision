@@ -22,6 +22,7 @@ class Morse_code {
     static class Decoder {
         private static final char CYPHER_ON = '+';
         private static final char CYPHER_OFF = '-';
+        private static enum Status {CS_STARTED,CS_LONG,CS_ENDED,MC_ENDED};
         private HashMap<MorseCharacter, Character> morseCharToAsciiDict;
         
         public Decoder() {
@@ -29,24 +30,19 @@ class Morse_code {
         }
         
         public String decodeFile(String filename) {
-            String inputText = getFileContent(filename);
+            String inputText;
+            try {
+              inputText = new String( Files.readAllBytes( Paths.get(filename) ) );
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "";
+            }
             // Create a list of MorseCharacters from input text
             List<MorseCharacter> morseChars = createMorseCharacterList(inputText);
+            
             // decode the list and return a cleartext string
             return decodeMorseCharacterList(morseChars);
         }
-
-        private String getFileContent(String filename) {
-            try {
-                return new String( Files.readAllBytes( Paths.get(filename) ) );
-            } 
-            catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            } 
-        }
-
-        private enum Status {CS_STARTED,CS_LONG,CS_ENDED,MC_ENDED};
 
         private List<MorseCharacter> createMorseCharacterList (String inputText) {
         /* from inputText we create a CypherStream and split it up into a MorseCharacterList  
@@ -184,7 +180,8 @@ class Morse_code {
 
         @Override
         public int hashCode(){
-            return (int) this.character;
+            // combine the 2 attribute into an Integer
+            return ((int) this.character)<<8 | this.length;
         }
 
         @Override
