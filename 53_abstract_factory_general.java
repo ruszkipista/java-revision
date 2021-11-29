@@ -8,23 +8,36 @@ class Abstract_Factory_Pattern {
     Each generated factory can provide the objects as per the Factory Pattern.
     */
     public static void main(String[] args) {
-        String type = "B";
-        AbstractFactory factory;
-        
-        if ("A".equals(type))
-            factory = new FactoryA();
-        else
-            factory = new FactoryB();
+        ProductFactory factory = SuperFactory.createProductFactory(SuperFactory.Type.A);
         factory.createProductX(); 
         factory.createProductY(); 
-}
-    
-    static abstract class AbstractFactory {
+    }
+
+    // concrete static factory class
+    static class SuperFactory{
+        public static enum Type{A,B};
+        public static ProductFactory createProductFactory(SuperFactory.Type type){
+            ProductFactory factory = null;
+            switch (type){
+                case A:
+                    factory = new FactoryA();
+                    break;
+                case B:
+                    factory = new FactoryB();
+                    break;
+            }
+            return factory;
+        }
+    }
+
+    // interface
+    static interface ProductFactory {
         public abstract ProductX createProductX();
         public abstract ProductY createProductY();
     }
-
-    static class FactoryA extends AbstractFactory{
+    // concrete class
+    static class FactoryA implements ProductFactory{
+        public FactoryA(){ System.out.println("Factory A created"); }
         @Override
         public ProductX createProductX() {
             return new ProductAX();
@@ -34,7 +47,9 @@ class Abstract_Factory_Pattern {
             return new ProductAY();
         }
     }
-    static class FactoryB extends AbstractFactory {
+    // concrete class
+    static class FactoryB implements ProductFactory {
+        public FactoryB(){ System.out.println("Factory B created"); }
         @Override
         public ProductX createProductX() {
             return new ProductBX();
@@ -44,22 +59,22 @@ class Abstract_Factory_Pattern {
             return new ProductBY();
         }
     }
+    // interface
+    static interface ProductX { }
+    // interface
+    static interface ProductY { }
 
-    static abstract class ProductX {
-    }
-    static abstract class ProductY {
-    }
-
-    static class ProductAX extends ProductX {
+    // concrete classes    
+    static class ProductAX implements ProductX {
         public ProductAX() { System.out.println("ProductAX created"); }
     }
-    static class ProductBX extends ProductX {
+    static class ProductBX implements ProductX {
         public ProductBX() { System.out.println("ProductBX created"); }
     }
-    static class ProductAY extends ProductY {
+    static class ProductAY implements ProductY {
         public ProductAY() { System.out.println("ProductAY created"); }
     }
-    static class ProductBY extends ProductY {
+    static class ProductBY implements ProductY {
         public ProductBY() { System.out.println("ProductBY created"); }
     }
 }
