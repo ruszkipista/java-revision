@@ -1,3 +1,5 @@
+import java.util.Random;
+
 class Abstract_Factory_Pattern {
     /*
     Abstract Factory patterns work with a super-factory which creates other factories.
@@ -8,21 +10,22 @@ class Abstract_Factory_Pattern {
     Each generated factory can provide the objects as per the Factory Pattern.
     */
     public static void main(String[] args) {
-        ProductFactory factory = SuperFactory.createProductFactory(SuperFactory.Type.A);
+        ProductFactory factory = SuperFactory.getProductFactory();
         factory.createProductX(); 
         factory.createProductY(); 
     }
 
     // concrete static factory class
     static class SuperFactory{
-        public static enum Type{A,B};
-        public static ProductFactory createProductFactory(SuperFactory.Type type){
+        public static ProductFactory getProductFactory(){
             ProductFactory factory = null;
-            switch (type){
-                case A:
+            // factory type selection is an internal process
+            int factoryType = (new Random()).nextInt(2);
+            switch (factoryType){
+                case 0:
                     factory = new FactoryA();
                     break;
-                case B:
+                case 1:
                     factory = new FactoryB();
                     break;
             }
