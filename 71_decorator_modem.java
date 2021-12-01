@@ -36,6 +36,10 @@ Let's use customized modems according to our preferences.
         }        
     }
 
+    // Modem decorator abstract class
+    // - it is a Modem
+    // - also points to a Modem
+    // - every inherited method calls the same method of the pointed Modem
     static abstract class SpeakerVolumePreSetModem implements Modem{
         Modem realModem;
         int speakerVolumePreSet;
@@ -51,12 +55,13 @@ Let's use customized modems according to our preferences.
             realModem.setSpeakerVolume(volume);            
         }
     }
-
+    // concrete class of Modem decorator abstract class
     static class LoudDialModem extends SpeakerVolumePreSetModem{
         public LoudDialModem(Modem modem){
             super(modem, 99);
         }
     }
+    // concrete class of Modem decorator abstract class
     static class QuietDialModem extends SpeakerVolumePreSetModem{
         public QuietDialModem(Modem modem){
             super(modem, 0);
