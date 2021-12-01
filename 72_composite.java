@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 class Composite_Pattern {
 /*
-Complex is a structural design pattern that lets you compose objects into
+Composite is a structural design pattern that lets you compose objects into
 tree structures and then work with these structures as if they were individual objects.
 */    
     public static void main(String[] args) {
@@ -43,8 +43,10 @@ tree structures and then work with these structures as if they were individual o
 // Composite objects usually delegate the actual work to their children
 // and then "sum up" the result.    
     static abstract class Complex implements Component{
-        private ArrayList<Component> components = new ArrayList<Component>();
-
+        private ArrayList<Component> components;
+        public Complex(){
+            this.components = new ArrayList<Component>();
+        }
         @Override
         public void execute(){
             System.out.println("executing components of Complex");
