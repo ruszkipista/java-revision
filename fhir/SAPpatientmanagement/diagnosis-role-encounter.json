@@ -1,0 +1,50 @@
+{
+  "resourceType": "ValueSet",
+  "id": "diagnosis-role-encounter",
+  "url": "http://sap.com/healthcare/IS-H/fhir/ValueSet/encounter-diagnosis-role",
+  "version": "1.0",
+  "name": "DiagnosisRoleEncounter",
+  "status": "active",
+  "experimental": false,
+  "date": "2021-08-01",
+  "publisher": "SAP SE",
+  "description": "This valueSet defines the possible values for diagnosis role within an encounter. It combines codes out of the FHIR codesystem https://www.hl7.org/fhir/codesystem-diagnosis-role.html and the SAP codeSystem http://sap.com/healthcare/fhir/CodeSystem/diagnosis-role",
+  "compose": {
+    "include": [
+      {
+        "system": "http://sap.com/healthcare/fhir/CodeSystem/diagnosis-role",
+        "concept": [
+          {
+            "code": "referral-diagnosis",
+            "display": "Referral diagnosis"
+          },
+          {
+            "code": "treatment-diagnosis",
+            "display": "Treatment diagnosis"
+          },
+          {
+            "code": "surgery-diagnosis",
+            "display": "Surgery diagnosis"
+          },
+          {
+            "code": "department-main-diagnosis",
+            "display": "Department main diagnosis"
+          }
+        ]
+      },
+      {
+        "system": "https://www.hl7.org/fhir/codesystem-diagnosis-role.html",
+        "concept": [
+          {
+            "code": "AD",
+            "display": "Admission diagnosis"
+          },
+          {
+            "code": "DD",
+            "display": "Discharge diagnosis"
+          }
+        ]
+      }
+    ]
+  }
+}

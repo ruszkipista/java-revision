@@ -1,0 +1,69 @@
+{
+  "resourceType": "Account",
+  "id": "0001-0005000524",
+  "extension": [
+    {
+      "url": "http://fhir.krankenhaus.example/fhir/StructureDefinition/AccountExtension-encounter",
+      "valueString": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Encounter/0001-0005000524-00001"
+    },
+    {
+      "url": "http://fhir.krankenhaus.example/fhir/StructureDefinition/AccountExtension-encounter",
+      "valueString": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Encounter/0001-0005000524-00002"
+    },
+    {
+      "url": "http://fhir.krankenhaus.example/fhir/StructureDefinition/AccountExtension-encounter",
+      "valueString": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Encounter/0001-0005000524-00003"
+    },
+    {
+      "url": "http://fhir.krankenhaus.example/fhir/StructureDefinition/AccountExtension-encounter",
+      "valueString": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Encounter/0001-0005000524-00004"
+    },
+    {
+      "url": "http://fhir.krankenhaus.example/fhir/StructureDefinition/AccountExtension-encounter",
+      "valueString": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Encounter/0001-0005000524-00005"
+    }
+  ],
+  "identifier": [
+    {
+      "use": "official",
+      "system": "http://fhir.krankenhaus.example/IS-H/fhir/Account",
+      "value": "0001-0005000524"
+    }
+  ],
+  "status": "active",
+  "subject": [
+    {
+      "reference": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Patient/0002000497",
+      "type": "Patient",
+      "identifier": {
+        "use": "official",
+        "system": "http://fhir.krankenhaus.example/IS-H/fhir/Patient",
+        "value": "0002000497"
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "coverage": {
+        "reference": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Coverage/0002000497-002",
+        "type": "Coverage",
+        "identifier": {
+          "use": "official",
+          "system": "http://fhir.krankenhaus.example/IS-H/fhir/Coverage",
+          "value": "0002000497-002"
+        }
+      },
+      "priority": 1
+    }
+  ],
+  "owner": {
+    "reference": "https://system.port/sap/is-h/fhir/sap_ish_r4_gen/Organization/42010aee-26b3-1eea-97a4-d32eb51b623d",
+    "type": "Organization",
+    "identifier": {
+      "use": "official",
+      "system": "http://fhir.krankenhaus.example/IS-H/fhir/Institution",
+      "value": "0001"
+    }
+  },
+  "description": "test 111"
+}

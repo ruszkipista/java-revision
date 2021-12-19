@@ -1,0 +1,50 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "diagnosis-role",
+  "url": "http://sap.com/healthcare/fhir/CodeSystem/diagnosis-role",
+  "version": "1.0",
+  "name": "DiagnosisRole",
+  "status": "active",
+  "date": "2021-08-01",
+  "publisher": "SAP SE",
+  "description": "SAP codeSystem for the role of a diagnosis in Encounter and Account instances. It complements the FHIR codeSystem for diagnosis role",
+  "caseSensitive": true,
+  "content": "complete",
+  "concept": [
+    {
+      "code": "principle-DRG",
+      "display": "Principle DRG diagnosis",
+      "definition": "Principle DRG diagnosis, taken into account for DRG grouping in this role"
+    },
+    {
+      "code": "secondary-DRG",
+      "display": "Secondary DRG diagnosis",
+      "definition": "Secondary DRG diagnosis, taken into account for DRG grouping in this role"
+    },
+    {
+      "code": "referral-diagnosis",
+      "display": "Referral diagnosis",
+      "definition": "The referral diagnosis for outpatients or referral diagnosis for inpatients is the diagnosis which is noted on referral documents presented by the patient."
+    },
+    {
+      "code": "treatment-diagnosis",
+      "display": "Treatment diagnosis",
+      "definition": "A treatment diagnosis can be further specialized as surgery diagnosis, admission diagnosis etc."
+    },
+    {
+      "code": "surgery-diagnosis",
+      "display": "Surgery diagnosis",
+      "definition": "The surgery diagnosis is a diagnosis that is directly linked to a peformed surgical procedure"
+    },
+    {
+      "code": "department-main-diagnosis",
+      "display": "Department main diagnosis",
+      "definition": "The department main diagnosis is the diagnosis which is the reason for outpatient or inpatient treatment during a department stay"
+    },
+    {
+      "code": "hospital-main-diagnosis",
+      "display": "Hospital main diagnosis",
+      "definition": "The hospital main diagnosis is the diagnosis which is the reason for outpatient or inpatient treatments during a hospital stay."
+    }
+  ]
+}

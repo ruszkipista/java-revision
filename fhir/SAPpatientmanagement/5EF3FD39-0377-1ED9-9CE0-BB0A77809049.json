@@ -1,0 +1,722 @@
+{
+  "resourceType": "CapabilityStatement",
+  "id": "capabilityStatement_SAP_ISH_R4_GV2",
+  "version": "SAP_ISH_R4_GV2",
+  "status": "active",
+  "date": "2020-01-01",
+  "kind": "instance",
+  "software": {
+    "name": "SAP IS-H"
+  },
+  "implementation": {
+    "description": "SAP IS-H FHIR"
+  },
+  "fhirVersion": "4.0.0",
+  "format": [
+    "xml",
+    "application/xml",
+    "application/fhir+xml",
+    "json",
+    "application/json",
+    "application/fhir+json"
+  ],
+  "rest": [
+    {
+      "mode": "server",
+      "resource": [
+        {
+          "type": "Account",
+          "interaction": [
+            {
+              "code": "delete",
+              "documentation": "Account Delete"
+            },
+            {
+              "code": "read",
+              "documentation": "Account Read"
+            },
+            {
+              "code": "update",
+              "documentation": "Account Update"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "encounter",
+              "type": "reference",
+              "documentation": "Search by Encounter Identifier"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "Account number"
+            },
+            {
+              "name": "subject",
+              "type": "reference",
+              "documentation": "The entity that caused the expenses"
+            }
+          ]
+        },
+        {
+          "type": "Appointment",
+          "interaction": [
+            {
+              "code": "create",
+              "documentation": "Appointment Create"
+            },
+            {
+              "code": "delete",
+              "documentation": "Appointment Delete"
+            },
+            {
+              "code": "read",
+              "documentation": "Appointment Read"
+            },
+            {
+              "code": "update",
+              "documentation": "Appointment Update"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "actor",
+              "type": "reference",
+              "documentation": "Any one of the individuals participating in the appointment"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "An Identifier of the Appointment"
+            }
+          ]
+        },
+        {
+          "type": "CapabilityStatement",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "CapabilityStatement Read"
+            }
+          ]
+        },
+        {
+          "type": "ChargeItemDefinition",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "ChargeItemDefinition Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "External identifier for the ChargeitemDefinition"
+            }
+          ]
+        },
+        {
+          "type": "Condition",
+          "interaction": [
+            {
+              "code": "create",
+              "documentation": "Condition Create"
+            },
+            {
+              "code": "delete",
+              "documentation": "Condition Delete"
+            },
+            {
+              "code": "read",
+              "documentation": "Condition Read"
+            },
+            {
+              "code": "update",
+              "documentation": "Condition Update"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "account",
+              "type": "reference",
+              "documentation": "Account created as part of"
+            },
+            {
+              "name": "encounter",
+              "type": "reference",
+              "documentation": "Encounter created as part of"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "A unique identifier of the condition record"
+            },
+            {
+              "name": "subject",
+              "type": "reference",
+              "documentation": "Who has the condition?"
+            }
+          ]
+        },
+        {
+          "type": "Coverage",
+          "interaction": [
+            {
+              "code": "create",
+              "documentation": "Coverage Create"
+            },
+            {
+              "code": "delete",
+              "documentation": "Coverage Delete"
+            },
+            {
+              "code": "read",
+              "documentation": "Coverage Read"
+            },
+            {
+              "code": "update",
+              "documentation": "Coverage Update"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "The primary identifier of the insured and the coverage"
+            }
+          ]
+        },
+        {
+          "type": "Encounter",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Encounter Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "date",
+              "type": "date",
+              "documentation": "A date within the period the Encounter lasted"
+            },
+            {
+              "name": "department-organization",
+              "type": "reference",
+              "documentation": "Department organization search"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "Identifier(s) by which this encounter is known"
+            },
+            {
+              "name": "location",
+              "type": "reference",
+              "documentation": "Location the encounter takes place"
+            },
+            {
+              "name": "nursing-organization",
+              "type": "reference",
+              "documentation": "Nursing organization search"
+            },
+            {
+              "name": "patient",
+              "type": "reference",
+              "documentation": "The patient or group present at the encounter"
+            },
+            {
+              "name": "practitioner",
+              "type": "reference",
+              "documentation": "Persons involved in the encounter other than the patient"
+            },
+            {
+              "name": "service-provider",
+              "type": "reference",
+              "documentation": "The organization (facility) responsible for this encounter"
+            }
+          ]
+        },
+        {
+          "type": "Invoice",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Invoice Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "account",
+              "type": "reference",
+              "documentation": "Account that is being balanced"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "Business Identifier for item"
+            },
+            {
+              "name": "subject",
+              "type": "reference",
+              "documentation": "Recipient(s) of goods and services"
+            }
+          ]
+        },
+        {
+          "type": "Location",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Location Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "An identifier for the location"
+            }
+          ]
+        },
+        {
+          "type": "MessageDefinition",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "MessageDefinition Read"
+            }
+          ]
+        },
+        {
+          "type": "Organization",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Organization Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "Any identifier for the organization (not the accreditation issuer's identifier)"
+            }
+          ]
+        },
+        {
+          "type": "Patient",
+          "interaction": [
+            {
+              "code": "create",
+              "documentation": "Patient Create"
+            },
+            {
+              "code": "delete",
+              "documentation": "Patient Delete"
+            },
+            {
+              "code": "read",
+              "documentation": "Patient Read"
+            },
+            {
+              "code": "update",
+              "documentation": "Patient Update"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "_id",
+              "type": "token",
+              "documentation": "A patient id bundle"
+            },
+            {
+              "name": "_identifier",
+              "type": "token",
+              "documentation": "A patient identifier bundle"
+            },
+            {
+              "name": "birthdate",
+              "type": "date",
+              "documentation": "The patient's date of birth"
+            },
+            {
+              "name": "family",
+              "type": "string",
+              "documentation": "A portion of the family name of the patient"
+            },
+            {
+              "name": "given",
+              "type": "string",
+              "documentation": "A portion of the given name of the patient"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "A patient identifier"
+            },
+            {
+              "name": "organization",
+              "type": "reference",
+              "documentation": "Institution"
+            }
+          ]
+        },
+        {
+          "type": "Practitioner",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Practitioner Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "A practitioner's Identifier"
+            }
+          ]
+        },
+        {
+          "type": "PractitionerRole",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "PractitionerRole Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "A practitioner's Identifier"
+            }
+          ]
+        },
+        {
+          "type": "Procedure",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Procedure Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "account",
+              "type": "reference",
+              "documentation": "Account search"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "A unique identifier for a procedure"
+            }
+          ]
+        },
+        {
+          "type": "RelatedPerson",
+          "interaction": [
+            {
+              "code": "create",
+              "documentation": "RelatedPerson Create"
+            },
+            {
+              "code": "delete",
+              "documentation": "RelatedPerson Delete"
+            },
+            {
+              "code": "read",
+              "documentation": "RelatedPerson Read"
+            },
+            {
+              "code": "update",
+              "documentation": "RelatedPerson Update"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "An Identifier of the RelatedPerson"
+            }
+          ]
+        },
+        {
+          "type": "Schedule",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Schedule Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "SAPexternalBookable",
+              "type": "string",
+              "documentation": "SAPexternalBookable"
+            },
+            {
+              "name": "actor",
+              "type": "reference",
+              "documentation": "The individual(HealthcareService, Practitioner, Location, ...) to find a Schedule for"
+            },
+            {
+              "name": "identifier",
+              "type": "token",
+              "documentation": "A Schedule Identifier"
+            },
+            {
+              "name": "service-category",
+              "type": "token",
+              "documentation": "A broad categorization of the service that is to be performed during this appointment"
+            }
+          ]
+        },
+        {
+          "type": "Slot",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "Slot Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "SAPexternalBookable",
+              "type": "string",
+              "documentation": "SAPexternalBookable"
+            },
+            {
+              "name": "schedule",
+              "type": "reference",
+              "documentation": "The Schedule Resource that we are seeking a slot within"
+            },
+            {
+              "name": "service-category",
+              "type": "token",
+              "documentation": "A broad categorization of the service that is to be performed during this appointment"
+            },
+            {
+              "name": "start",
+              "type": "date",
+              "documentation": "Appointment date/time."
+            }
+          ]
+        },
+        {
+          "type": "StructureDefinition",
+          "interaction": [
+            {
+              "code": "read",
+              "documentation": "StructureDefinition Read"
+            }
+          ],
+          "searchParam": [
+            {
+              "name": "url",
+              "type": "uri",
+              "documentation": "The uri that identifies the structure definition"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "messaging": [
+    {
+      "supportedMessage": [
+        {
+          "mode": "receiver",
+          "definition": "#account-cancelled-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#account-cancelled-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#account-created-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#account-updated-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#account-updated-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#appointment-cancelled-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#appointment-cancelled-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#appointment-created-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#appointment-created-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#appointment-updated-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#appointment-updated-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#chargeitem-cancelled-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#chargeitem-created-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#chargeitem-updated-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#condition-cancelled-receiver"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#condition-created-receiver"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#condition-updated-receiver"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#coverage-cancelled-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#coverage-cancelled-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#coverage-created-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#coverage-created-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#coverage-updated-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#coverage-updated-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#encounter-cancelled-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#encounter-created-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#encounter-updated-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#location-initial-load-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#organization-initial-load-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#patient-cancelled-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#patient-cancelled-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#patient-created-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#patient-created-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#patient-initial-load-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#patient-merged-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#patient-updated-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#patient-updated-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#practitioner-initial-load-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#procedure-cancelled-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#procedure-created-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#procedure-updated-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#relatedperson-cancelled-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#relatedperson-cancelled-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#relatedperson-created-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#relatedperson-created-sender"
+        },
+        {
+          "mode": "receiver",
+          "definition": "#relatedperson-updated-receiver"
+        },
+        {
+          "mode": "sender",
+          "definition": "#relatedperson-updated-sender"
+        },
+        {
+          "mode": "sender",
+          "definition": "#schedule-initial-load-sender"
+        }
+      ]
+    }
+  ]
+}

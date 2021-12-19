@@ -1,0 +1,11 @@
+{
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "*.fhir.json"
+            ],
+            "url": "./.vscode/fhir.schema.json"
+        }
+    ],
+    "json.maxItemsComputed": 10000
+}

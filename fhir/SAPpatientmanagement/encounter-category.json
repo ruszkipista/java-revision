@@ -1,0 +1,66 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "encounter-category",
+  "url": "http://sap.com/healthcare/fhir/CodeSystem/encounter-category",
+  "version": "1.0",
+  "name": "EncounterCategory",
+  "status": "active",
+  "experimental": true,
+  "date": "2021-05-19",
+  "publisher": "SAP SE",
+  "description": "CodeSystem for encounter category",
+  "caseSensitive": true,
+  "content": "complete",
+  "concept": [
+    {
+      "code": "previsit",
+      "display": "previsit",
+      "definition": "preadmission visit"
+    },
+    {
+      "code": "postvisit",
+      "display": "postvisit",
+      "definition": "postdischarge visit"
+    },
+    {
+      "code": "outsurgery",
+      "display": "outpatient surgery",
+      "definition": "outpatient surgery"
+    },
+    {
+      "code": "initial",
+      "display": "initial visit",
+      "definition": "initial visit"
+    },
+    {
+      "code": "insurgery",
+      "display": "inpatient surgery",
+      "definition": "inpatient surgery"
+    },
+    {
+      "code": "newborn",
+      "display": "newborn",
+      "definition": "newborn"
+    },
+    {
+      "code": "companion",
+      "display": "companion",
+      "definition": "companion"
+    },
+    {
+      "code": "medcompanion",
+      "display": "medical companion",
+      "definition": "medical companion"
+    },
+    {
+      "code": "delivery",
+      "display": "delivery",
+      "definition": "delivery"
+    },
+    {
+      "code": "other",
+      "display": "other",
+      "definition": "other"
+    }
+  ]
+}

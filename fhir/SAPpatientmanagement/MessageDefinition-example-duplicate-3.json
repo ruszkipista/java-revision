@@ -1,0 +1,20 @@
+{
+  "resourceType": "MessageDefinition",
+  "id": "organization-initial-load-sender",
+  "name": "ORGANIZATION INITIAL LOAD",
+  "title": "organization initial load",
+  "status": "active",
+  "date": "2020-01-01",
+  "eventCoding": {
+    "system": "http://sap.com/healthcare/IS-H/fhir/ValueSet/inbound-message-code",
+    "code": "organization-initial-load"
+  },
+  "category": "consequence",
+  "focus": [
+    {
+      "code": "Organization",
+      "min": 1,
+      "max": "*"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "MessageDefinition",
+  "id": "practitioner-initial-load-sender",
+  "name": "PRACTITIONER INITIAL LOAD",
+  "title": "practitioner initial load",
+  "status": "active",
+  "date": "2020-01-01",
+  "eventCoding": {
+    "system": "http://sap.com/healthcare/IS-H/fhir/ValueSet/inbound-message-code",
+    "code": "practitioner-initial-load"
+  },
+  "category": "consequence",
+  "focus": [
+    {
+      "code": "Practitioner",
+      "min": 1,
+      "max": "*"
+    },
+    {
+      "code": "PractitionerRole",
+      "min": 1,
+      "max": "*"
+    }
+  ]
+}

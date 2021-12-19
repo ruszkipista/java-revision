@@ -1,0 +1,17 @@
+{
+  "resourceType": "ValueSet",
+  "url": "http://sap.com/healthcare/IS-H/fhir/ValueSet/encounter-absenceReason",
+  "version": "1.0",
+  "name": "AbsenceReason",
+  "status": "active",
+  "date": "2021-03-01",
+  "publisher": "SAP SE",
+  "description": "This ValueSet contains all the absence reasons.",
+  "compose": {
+    "include": [
+      {
+        "system": "http://sap.com/healthcare/fhir/CodeSystem/encounter-absenceReason"
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "resourceType": "ValueSet",
+  "id": "encounter-level",
+  "url": "http://sap.com/healthcare/IS-H/fhir/ValueSet/encounter-level",
+  "version": "1.0",
+  "name": "EncounterLevel",
+  "status": "active",
+  "date": "2021-08-01",
+  "publisher": "SAP SE",
+  "description": "This ValueSet contains only the treatment-level encounter. This is the granularity currently supported by IS-H.",
+  "compose": {
+    "include": [
+      {
+        "system": "http://sap.com/healthcare/fhir/CodeSystem/encounter-level",
+        "concept": [
+          {
+            "code": "Treatment-level encounter",
+            "display": "Treatment-level encounter"
+          }
+        ]
+      }
+    ]
+  }
+}

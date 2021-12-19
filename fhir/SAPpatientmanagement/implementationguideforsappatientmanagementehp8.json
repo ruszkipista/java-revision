@@ -1,0 +1,138 @@
+{
+  "resourceType": "ImplementationGuide",
+  "url": "https://simplifier.net/guide/sap-patientmanagement",
+  "name": "IG for SAP Patient Management",
+  "status": "draft",
+  "description": "This implementation guide describes all the SAP profiles and extensions shipped for SAP Patient Management EhP8.",
+  "fhirVersion": [
+    "4.0.0"
+  ],
+  "definition": {
+    "page": {
+      "nameUrl": "Home.md",
+      "title": "Home",
+      "generation": "markdown",
+      "page": [
+        {
+          "nameUrl": "UseCases.md",
+          "title": "Use Cases",
+          "generation": "markdown",
+          "page": [
+            {
+              "nameUrl": "IntegrationviaRESTfulinteractions.md",
+              "title": "Integration via RESTful interactions",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Integrationviamessaging.md",
+              "title": "Integration via messaging",
+              "generation": "markdown"
+            }
+          ]
+        },
+        {
+          "nameUrl": "SAPProfiles.md",
+          "title": "SAP Profiles",
+          "generation": "markdown",
+          "page": [
+            {
+              "nameUrl": "Account.md",
+              "title": "Account",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Appointment.md",
+              "title": "Appointment",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "ChargeItem.md",
+              "title": "ChargeItem",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "ChargeItemDefinition.md",
+              "title": "ChargeItemDefinition",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Condition.md",
+              "title": "Condition",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Coverage.md",
+              "title": "Coverage",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Encounter.md",
+              "title": "Encounter",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Invoice.md",
+              "title": "Invoice",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Location.md",
+              "title": "Location",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Organization.md",
+              "title": "Organization",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Patient.md",
+              "title": "Patient",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Practitioner.md",
+              "title": "Practitioner",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "PractitionerRole.md",
+              "title": "PractitionerRole",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Procedure.md",
+              "title": "Procedure",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "RelatedPerson.md",
+              "title": "RelatedPerson",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Schedule.md",
+              "title": "Schedule",
+              "generation": "markdown"
+            },
+            {
+              "nameUrl": "Slot-duplicate-2.md",
+              "title": "Slot",
+              "generation": "markdown"
+            }
+          ]
+        },
+        {
+          "nameUrl": "SAPExtensions.md",
+          "title": "SAP Extensions",
+          "generation": "markdown"
+        },
+        {
+          "nameUrl": "Disclaimer.md",
+          "title": "Disclaimer",
+          "generation": "markdown"
+        }
+      ]
+    }
+  }
+}

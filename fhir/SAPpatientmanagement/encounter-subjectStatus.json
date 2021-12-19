@@ -1,0 +1,37 @@
+{
+  "resourceType": "ValueSet",
+  "id": "encounter-subjectStatus",
+  "url": "http://sap.com/healthcare/IS-H/fhir/ValueSet/encounter-subjectStatus",
+  "version": "1.0",
+  "name": "EncounterSubjectStatus",
+  "status": "active",
+  "experimental": false,
+  "date": "2021-08-01",
+  "publisher": "SAP SE",
+  "description": "This valueSet defines the possible values for an encounter subject status. It takes into consideration the values defined for FHIR R5",
+  "compose": {
+    "include": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/encounter-subject-status",
+        "concept": [
+          {
+            "code": "arrived",
+            "display": "Arrived"
+          },
+          {
+            "code": "triaged",
+            "display": "Triaged"
+          },
+          {
+            "code": "on-leave",
+            "display": "On Leave"
+          },
+          {
+            "code": "departed",
+            "display": "Departed"
+          }
+        ]
+      }
+    ]
+  }
+}
