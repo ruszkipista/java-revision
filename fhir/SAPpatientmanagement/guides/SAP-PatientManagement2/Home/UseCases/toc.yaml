@@ -1,6 +1,0 @@
-- name: Index
-  filename: Index.guide.md
-- name: Integration via RESTful interactions
-  filename: IntegrationviaRESTfulinteractions.guide.md
-- name: Integration via messaging
-  filename: Integrationviamessaging.guide.md
