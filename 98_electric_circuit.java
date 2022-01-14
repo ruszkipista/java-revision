@@ -4,7 +4,7 @@ class ElectricCircuit {
     public static void main(String[] args) {
         LightBulb lightBulb = new LightBulb();
         Battery battery = new Battery();
-        // battery => lightBulb => battery(same)
+        // circuit: battery => lightBulb => battery(same)
         battery.connectThisMinusToOtherPlus(lightBulb);
         lightBulb.test();
         battery.connectThisPlusToOtherMinus(lightBulb);
@@ -14,7 +14,8 @@ class ElectricCircuit {
         Wire wire2 = new Wire();
         TwoEndSwitch twoEndSwitch = new TwoEndSwitch(false);
 
-        // battery => wire1 => twoEndSwitch => wire2 => lightBulb => battery(same)
+        // circuit: battery => wire1 => twoEndSwitch => wire2 => lightBulb => battery(same)
+        battery.connectThisMinusToOtherPlus(lightBulb);
         battery.connectThisPlusToOtherMinus(wire1);
         wire1.connectThisPlusToOtherMinus(twoEndSwitch);
         twoEndSwitch.connectThisPlusToOtherMinus(wire2);
@@ -30,17 +31,21 @@ class ElectricCircuit {
         private TwoEndConductor plus;
         private TwoEndConductor minus;
 
-        // +(this)- <=> +(c)-
+        // connect this conductor with an other
+        // +(this)- <=> +(other)-
         public void connectThisMinusToOtherPlus(TwoEndConductor other){
             this.minus = other;
             other.plus = this;
+            // send signal (0) through the circuit, that new connection was made
             forwardCurrentFromMinusToPlus(0);
         }
 
-        // +(this)- <=> +(c)-
+        // connect this conductor with an other
+        // +(other)- <=> +(this)-
         public void connectThisPlusToOtherMinus(TwoEndConductor other){
             this.plus = other;
             other.minus = this;
+            // send signal (0) through the circuit, that new connection was made
             forwardCurrentFromMinusToPlus(0);
         }        
 
@@ -68,6 +73,7 @@ class ElectricCircuit {
 
         @Override
         public void forwardCurrentFromMinusToPlus(float current){
+            // forward current only if it is in ON state
             if (this.switchState)
                 super.forwardCurrentFromMinusToPlus(current);
         }
@@ -82,17 +88,22 @@ class ElectricCircuit {
 
     static class LightBulb extends TwoEndConductor{
         boolean isEmitLight;
+
         public LightBulb(){
             this.isEmitLight = false;
         }
-        @Override
-        public void forwardCurrentFromMinusToPlus(float current){
-            if (current > 0) this.isEmitLight = true;
-            else this.isEmitLight = false;
-            super.forwardCurrentFromMinusToPlus(current);
-        }
+
         public boolean isEmitLight(){
             return this.isEmitLight;
+        }
+
+        @Override
+        public void forwardCurrentFromMinusToPlus(float current){
+            // if received current is greater than 0
+            if (current > 0) this.isEmitLight = true;
+            else this.isEmitLight = false;
+            // forward the received current
+            super.forwardCurrentFromMinusToPlus(current);
         }
 
         public void test(){
@@ -107,8 +118,16 @@ class ElectricCircuit {
 
         @Override
         public void forwardCurrentFromMinusToPlus(float current){
-            if (current == 0) super.forwardCurrentFromMinusToPlus(-1);
-            else if (current == -1) super.forwardCurrentFromMinusToPlus(1);
+            // if current is 0, then new connection was made
+            if (current == 0) 
+                // send a -1 current around in the circuit
+                super.forwardCurrentFromMinusToPlus(-1);
+
+            else
+                // the -1 current went a round => there is a circuit
+                if (current < 0) 
+                    // send a real current (for consumption of appliances, e.g. light bulb)
+                    super.forwardCurrentFromMinusToPlus(1);
         }
     }
 }
