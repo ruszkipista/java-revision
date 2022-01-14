@@ -7,6 +7,11 @@ tree structures and then work with these structures as if they were individual o
 */    
     public static void main(String[] args) {
         // compose a tree
+        //          me
+        //       /  |  \
+        //     p1   p2  dog
+        //    /  \
+        //  p11  p12
         BranchA me = new BranchA();
         BranchB parent1 = new BranchB();
         BranchB parent2 = new BranchB();

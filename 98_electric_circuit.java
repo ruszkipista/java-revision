@@ -118,7 +118,7 @@ class ElectricCircuit {
 
         @Override
         public void forwardCurrentFromMinusToPlus(float current){
-            // if current is 0, then new connection was made
+            // if received current is 0, then new connection was made
             if (current == 0) 
                 // send a -1 current around in the circuit
                 super.forwardCurrentFromMinusToPlus(-1);
