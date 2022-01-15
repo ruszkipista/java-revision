@@ -8,6 +8,10 @@ or with lots of existing dependencies).
 An ADAPTER wraps one of the objects to hide the complexity of conversion happening behind the scenes.
 Also can help objects with different interfaces to collaborate. The wrapped object isn’t even aware of the adapter.
 Sometimes it’s even possible to create a two-way adapter that can convert the calls in both directions.
+
+Facade defines a new interface for existing objects, whereas Adapter tries to make the existing
+interface usable. Adapter usually wraps just one object, while Facade works with an entire
+subsystem of objects.
 */
     public static void main(String[] args) {
 
