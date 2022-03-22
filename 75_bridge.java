@@ -9,6 +9,7 @@ or a set of closely related classes into two separate hierarchies — abstractio
     }
     
     // View is an abstraction of article descriptions e.g. in catalogs
+    // every View has a Resource
     static abstract class View {
         Resource resource;
 
